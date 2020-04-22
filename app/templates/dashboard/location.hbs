@@ -1,0 +1,60 @@
+{{!-- Copyright 2020, Verizon Media. Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms. --}}
+<Nav @timeSinceRefresh={{this.metadata.timeSinceRefresh}} />
+<main class="dashboard">
+  {{#unless this.screen.isMobile}}
+    <aside class="dashboard__left">
+      <CaseDetails
+        class="dashboard__global-case-details p-20"
+        @title={{t "globalConfirmedCases"}}
+        @publishedDate={{this.metadata.publishedDate}}
+        @location={{hash attributes=(hash wikiId="Earth")}}
+      />
+      <LocationTable
+        class="p-t-20 dashboard__divider"
+        @fieldToShow="totalConfirmedCases"
+        @publishedDate={{this.metadata.publishedDate}}
+        @location={{this.currentLocation}}
+        @occlusion={{true}}
+      />
+    </aside>
+  {{/unless}}
+  <section class="dashboard__map-container">
+    <MapHeader class="dashboard__map-header" @location={{this.currentLocation}} />
+    <Map class="dashboard__map"
+      @fieldToShow="totalConfirmedCases"
+      @publishedDate={{this.metadata.publishedDate}}
+      @location={{this.currentLocation}}
+    />
+  </section>
+  {{#if this.screen.isMobile}}
+    <MobileTabs
+      @view={{this.mobileView}}
+      @location={{this.currentLocation}}
+      @onChange={{fn (mut this.mobileView)}}
+    />
+  {{/if}}
+  {{#if (or (not this.screen.isMobile) (eq this.mobileView "details"))}}
+    <section class="dashboard__map-details p-20">
+      <LocationInfo @location={{this.currentLocation}} />
+      {{#if this.showLocationCaseDetails}}
+        <CaseDetails
+          class="dashboard__location-case-details p-y-10"
+          @title={{t "confirmedCases"}}
+          @publishedDate={{this.metadata.publishedDate}}
+          @location={{this.currentLocation}}
+        />
+      {{/if}}
+      <HelpLinks class="dashboard__divider p-t-10" />
+    </section>
+  {{else}}
+    <section class="dashboard__mobile-breakdown">
+      <LocationTable
+        class="p-t-20"
+        @fieldToShow="totalConfirmedCases"
+        @publishedDate={{this.metadata.publishedDate}}
+        @location={{this.currentLocation}}
+        @occlusion={{false}}
+      />
+    </section>
+  {{/if}}
+</main>

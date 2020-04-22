@@ -1,0 +1,18 @@
+{{!-- Copyright 2020, Verizon Media. Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms. --}}
+{{#if @occlusion}}
+  <VerticalCollection
+     @items={{@locations}}
+     @estimateHeight={{31}}
+     @staticHeight={{false}}
+     @key="attributes.wikiId"
+     @idForFirstItem={{@selectedLocationId}}
+     @bufferSize={{5}}
+     as |location|
+  >
+    {{yield location}}
+  </VerticalCollection>
+{{else}}
+  {{#each @locations as |location|}}
+    {{yield location}}
+  {{/each}}
+{{/if}}

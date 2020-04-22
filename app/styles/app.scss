@@ -1,0 +1,17 @@
+/**
+ * Copyright 2020, Verizon Media.
+ * Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms.
+ */
+@use "common/common-index";
+@use "components/cmp-index";
+@use "views/view-index";
+
+body {
+  height: 100vh;
+  display: flex;
+  flex-flow: column;
+}
+
+svg {
+  pointer-events: none; // disable denali titles
+}

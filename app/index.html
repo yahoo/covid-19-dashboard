@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Covid-19 Tracker - Yahoo Knowledge Graph</title>
+    <meta name="description" content="An open source tracker for coronavirus cases." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://yahoo.github.io/covid-19-dashboard/" />
+    <meta property="og:title" content="Covid-19 Tracker - Yahoo Knowledge Graph" />
+    <meta property="og:description" content="An open source tracker for coronavirus cases." />
+    <meta property="og:image" content="https://yahoo.github.io/covid-19-dashboard/assets/images/social.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://yahoo.github.io/covid-19-dashboard/" />
+    <meta property="twitter:title" content="Covid-19 Tracker - Yahoo Knowledge Graph" />
+    <meta property="twitter:description" content="An open source tracker for coronavirus cases." />
+    <meta property="twitter:image" content="https://yahoo.github.io/covid-19-dashboard/assets/images/social.png" />
+
+    <!-- Icons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="https://s.yimg.com/cv/apiv2/social/images/yahoo_default_logo.png"
+    />
+    <link
+      rel="icon"
+      sizes="any"
+      mask=""
+      href="https://s.yimg.com/cv/apiv2/default/icons/favicon_y19_32x32_custom.svg"
+    />
+    <link rel="shortcut icon" href="https://s.yimg.com/rz/l/favicon.ico" />
+
+    {{content-for "head"}}
+
+    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/denali.css" />
+    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/vendor.css" />
+    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/covid-19-dashboard.css" />
+
+    {{content-for "head-footer"}}
+  </head>
+  <body>
+    {{content-for "body"}}
+
+    <script src="{{rootURL}}assets/vendor.js"></script>
+    <script src="{{rootURL}}assets/covid-19-dashboard.js"></script>
+
+    {{content-for "body-footer"}}
+  </body>
+</html>

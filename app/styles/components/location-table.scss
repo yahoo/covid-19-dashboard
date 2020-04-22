@@ -1,0 +1,83 @@
+/**
+ * Copyright 2020, Verizon Media.
+ * Licensed under the terms of the Apache License, Version 2.0. See accompanying LICENSE.md file for terms.
+ */
+.location-table {
+  display: flex;
+  flex-flow: column;
+  flex: 1;
+
+  @media (max-width: 899px) {
+    display: block;
+  }
+
+  &__loader {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 100px;
+  }
+
+  &__title {
+    &__up {
+      fill: var(--links-text-color);
+
+      &:hover {
+        fill: var(--links-hover-text-color);
+      }
+    }
+  }
+
+  &__list {
+    overflow-y: auto;
+    flex: 1 0 200px;
+    padding-right: 10px;
+
+    @supports (overflow-y: overlay) {
+      overflow: hidden;
+      padding-right: 20px;
+
+      &:hover {
+        overflow-y: overlay;
+      }
+    }
+
+    &-item {
+      display: flex;
+
+      &.active,
+      &:hover {
+        background: var(--color-grey-300);
+        border-radius: 4px;
+      }
+
+      &__place {
+        color: var(--color-brand-600);
+        font-size: 14px;
+        flex: 1;
+      }
+
+      &__total-confirmed-cases {
+        font-size: 12px;
+        align-self: center;
+      }
+    }
+  }
+
+  &__empty {
+    text-align: center;
+
+    &__icon-bg {
+      height: 120px;
+      width: 120px;
+      background-color: var(--color-grey-200);
+      border-radius: 50%;
+      margin: auto;
+    }
+
+    &__icon {
+      fill: var(--color-grey-400);
+      margin-left: 12px;
+    }
+  }
+}

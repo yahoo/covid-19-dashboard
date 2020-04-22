@@ -1,0 +1,18 @@
+{{!-- Copyright 2020, Verizon Media. Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms. --}}
+<PowerSelect
+  @tagName="div"
+  class="search-bar"
+  @triggerClass="search-bar__trigger"
+  @triggerComponent="search-bar-trigger"
+  @dropdownClass="search-bar__content"
+  @loadingMessage={{t "searchBar.loadingMsg"}}
+  @noMatchesMessage={{t "searchBar.noMatches"}}
+  @renderInPlace={{true}}
+  @search={{perform this.searchLocation}}
+  @onChange={{this.handleSelect}}
+  @registerAPI={{this.handleRegister}}
+  @placeholder={{t "searchBar.triggerPlaceholder"}}
+  as | location |
+>
+  {{location.label}}
+</PowerSelect>

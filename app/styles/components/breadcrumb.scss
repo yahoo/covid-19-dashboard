@@ -1,0 +1,25 @@
+/**
+ * Copyright 2020, Verizon Media.
+ * Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms.
+ */
+.breadcrumb {
+  align-items: center;
+  display: flex;
+  font-size: 14px;
+  height: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+
+  &__label {
+    display: inline-block;
+  }
+
+  &__delimiter {
+    color: var(--color-grey-600);
+  }
+
+  &__link:last-of-type {
+    color: var(--color-grey-800);
+    font-weight: 700;
+  }
+}

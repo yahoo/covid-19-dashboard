@@ -1,0 +1,21 @@
+{{!-- Copyright 2020, Verizon Media. Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms. --}}
+<div class="mobile-tabs tabs is-secondary">
+  <ul>
+    <li
+      class="{{if (eq @view "details") "is-active"}} mobile-tabs__tab"
+      role="button"
+      {{on "click" (fn @onChange "details")}}
+    >
+      {{!-- template-lint-disable link-href-attributes --}}
+      <a>{{t "details"}}</a>
+    </li>
+    <li
+      class="{{if (eq @view "breakdown") "is-active"}} mobile-tabs__tab"
+      role="button"
+      {{on "click" (fn @onChange "breakdown")}}
+    >
+      {{!-- template-lint-disable link-href-attributes --}}
+      <a>{{t (concat 'casesBy.' this.breakdownLocationType) default="empty"}}</a>
+    </li>
+  </ul>
+</div>

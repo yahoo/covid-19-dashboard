@@ -1,0 +1,41 @@
+{{!-- Copyright 2020, Verizon Media. Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms. --}}
+{{#if this.centerLocation}}
+  <LeafletMap
+    class="map"
+    @center={{this.centerLocation}}
+    @zoom={{this.zoom}}
+    @minZoom={{1}}
+    @maxZoom={{10}}
+    @onMoveend={{this.setZoom}}
+    @onZoomend={{this.setCurrentZoom}}
+    {{did-insert this.fetchGlobalRecords @publishedDate}}
+    {{did-update this.fetchGlobalRecords @publishedDate}}
+    {{did-insert this.fetchCountyRecords @location @publishedDate}}
+    {{did-update this.fetchCountyRecords @location @publishedDate}}
+    ...attributes
+    as |layers|
+  >
+    <layers.tile @attribution={{t this.tileServerAttribution}} @url={{this.tileUrl}} />
+    {{#if this.showMarker}}
+      <layers.marker
+        @location={{this.centerLocation}}
+        @icon={{icon className="map__marker-icon" iconUrl="location.svg" iconSize=(array 32 32)}}
+      />
+    {{/if}}
+    {{#each this.countryRecords as |rec|}}
+      <LocationMarker @rec={{rec}} @layer={{layers}} @fieldToShow={{@fieldToShow}} @onLocationClick={{this.onLocationClick}}  @zoom={{this.currentZoom}}/>
+    {{/each}}
+    {{#each this.stateRecords as |rec|}}
+      {{#if (or (not this.countyRecords.length) (neq rec.attributes.wikiId this.focusedState.attributes.wikiId))}}
+        <LocationMarker @rec={{rec}} @layer={{layers}} @fieldToShow={{@fieldToShow}} @onLocationClick={{this.onLocationClick}}  @zoom={{this.currentZoom}}/>
+      {{/if}}
+    {{/each}}
+    {{#each this.countyRecords as |rec|}}
+      {{#if (eq rec.relationships.state.data.id this.focusedState.id)}}
+        <LocationMarker @rec={{rec}} @layer={{layers}} @fieldToShow={{@fieldToShow}} @onLocationClick={{this.onLocationClick}} @zoom={{this.currentZoom}} />
+      {{/if}}
+    {{/each}}
+  </LeafletMap>
+{{else}}
+  <div class="map__placeholder" ...attributes></div>
+{{/if}}

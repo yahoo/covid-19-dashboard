@@ -1,0 +1,96 @@
+/**
+ * Copyright 2020, Verizon Media.
+ * Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms.
+ */
+$border-radius-sm: 4px;
+
+$tooltip-text-color: var(--color-grey-100);
+$tooltip-bg-color: rgba(#303030, 0.9);
+$tooltip-corner-radius: $border-radius-sm;
+$tooltip-text-size: 1.2rem;
+$tooltip-padding: 2px 5px; // modified
+$tooltip-small-text-size: 1rem;
+$tooltip-small-padding: 4px 6px;
+
+// Grab beta denali tooltip
+// https://github.com/denali-design/denali-css/blob/ae95a6d7e736199c6a05fc0ba433f96c37b39849/scss/components/tooltip.scss
+@mixin tooltip-default {
+  *[class*='d-tooltip'] {
+    position: relative;
+    border-bottom: dashed 1px var(--color-brand-600);
+
+    &::after {
+      content: attr(data-tooltip);
+      z-index: 1000;
+      position: absolute;
+      visibility: hidden;
+      opacity: 0;
+      transition: 300ms;
+      white-space: nowrap;
+
+      padding: $tooltip-padding;
+      font-size: $tooltip-text-size;
+      border-radius: $tooltip-corner-radius;
+      font-family: var(--font-family-sans-serif);
+      background-color: $tooltip-bg-color;
+      color: $tooltip-text-color;
+
+      // Position Bottom & Default
+      left: 50%;
+      top: calc(100% + 4px);
+      transform: translateX(-50%);
+    }
+
+    &[class*='d-tooltip-small']::after {
+      // Small size
+      font-size: $tooltip-small-text-size;
+      padding: $tooltip-small-padding;
+    }
+
+    &[class*='d-tooltip-top']::after {
+      // Position Top
+      top: 0%;
+      transform: translate(-50%, calc(-100% - 4px));
+    }
+
+    &[class*='d-tooltip-left']::after {
+      // Position Left
+      left: 0%;
+      top: 50%;
+      transform: translate(calc(-100% - 4px), -50%);
+    }
+
+    &[class*='d-tooltip-right']::after {
+      // Position Right
+      left: calc(100% + 4px);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &:hover::after,
+    &:focus::after {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+@mixin tooltip-theme {
+  *[class*='d-tooltip'] {
+    &::after {
+      padding: $tooltip-padding;
+      font-size: $tooltip-text-size;
+      border-radius: $tooltip-corner-radius;
+      font-family: var(--font-family-sans-serif);
+      background-color: $tooltip-bg-color;
+      color: $tooltip-text-color;
+    }
+    &[class*='d-tooltip-small']::after {
+      font-size: $tooltip-small-text-size;
+      padding: $tooltip-small-padding;
+    }
+  }
+}
+
+@include tooltip-default();
+@include tooltip-theme();

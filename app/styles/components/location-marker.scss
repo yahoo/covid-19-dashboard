@@ -1,0 +1,13 @@
+/**
+ * Copyright 2020, Verizon Media.
+ * Licensed under the terms of the Apache License, Version 2.0. See accompanying LICENSE.md file for terms.
+ */
+.location-marker {
+  stroke-width: 2;
+
+  &:hover {
+    fill: rgb(27, 168, 243);
+    stroke: rgb(27, 168, 243);
+    stroke-width: 3;
+  }
+}

@@ -1,0 +1,35 @@
+cache:
+  pipeline: [~/.npm]
+
+shared:
+  image: node:12
+  secrets:
+    # Remove SCM_* secrets once project is public
+    - SCM_USERNAME
+    - SCM_ACCESS_TOKEN
+
+jobs:
+  main:
+    steps:
+      - install: npm install
+      - install-chrome: ./build-scripts/setup-chrome.sh
+      - test: npm test
+    requires:
+      - ~pr
+      - ~commit
+
+  deploy:
+    requires:
+      - main
+    steps:
+      - setup-ci: git clone https://github.com/screwdriver-cd/toolbox.git /tmp/ci
+      - install: npm ci
+      - build-pages: npx ember github-pages:commit --message "Deploy gh-pages from $SD_BUILD_SHA" --environment "git-pages"
+      - deploy: |
+          . /tmp/ci/git-ssh.sh
+          git push origin gh-pages:gh-pages
+    secrets:
+      # Pushing code to Git
+      - GIT_KEY
+      - TILE_SERVER
+      - TILE_SERVER_ATTRIBUTION

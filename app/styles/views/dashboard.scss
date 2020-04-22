@@ -1,0 +1,100 @@
+/**
+ * Copyright 2020, Verizon Media.
+ * Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms.
+ */
+
+$map-header-height: 50px;
+$map-header-height--small: 40px;
+
+.dashboard {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 300px 1fr;
+  grid-template-areas: 'left map';
+  min-height: 0;
+  position: relative;
+
+  @media (max-width: 899px) {
+    display: flex;
+    flex: 1;
+    flex-flow: column;
+  }
+
+  &__left {
+    border: 1px solid var(--color-grey-200);
+    display: flex;
+    flex-flow: column;
+    grid-area: left;
+  }
+
+  &__divider {
+    border-top: 1px solid var(--color-grey-300);
+  }
+
+  &__map-container {
+    border: 1px solid var(--color-grey-200);
+    grid-area: map;
+    position: relative;
+  }
+
+  &__map {
+    height: calc(100vh - #{$map-header-height} - var(--navbar-height));
+    @media (max-width: 899px) {
+      height: 300px;
+    }
+  }
+
+  &__map-header {
+    height: $map-header-height;
+    @media (max-width: 899px) {
+      height: $map-header-height--small;
+    }
+  }
+
+  &__map-details {
+    background: var(--color-grey-100);
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px var(--color-grey-400);
+    overflow-y: auto;
+    position: absolute;
+    top: $map-header-height + 20px;
+    right: 30px;
+    width: 280px;
+    z-index: 999;
+
+    @media (max-width: 1199px) {
+      right: 20px;
+    }
+
+    @media (max-width: 899px) {
+      box-shadow: unset;
+      position: unset;
+      width: unset;
+      overflow: unset;
+    }
+
+    &-header {
+      &__wiki {
+        &-link {
+          align-items: center;
+          align-self: flex-start;
+          display: flex;
+          height: 24px;
+
+          &:hover {
+            .dashboard__map-details-header__wiki-icon {
+              fill: var(--links-hover-text-color);
+            }
+          }
+        }
+
+        &-icon {
+          bottom: 2px;
+          fill: var(--links-text-color);
+          pointer-events: none;
+          position: relative;
+        }
+      }
+    }
+  }
+}

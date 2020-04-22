@@ -1,0 +1,14 @@
+{{!-- Copyright 2020, Verizon Media. Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms. --}}
+<input type="input" autocomplete="off"
+  autocorrect="off" autocapitalize="off"
+  spellcheck={{false}} role="combobox"
+  class="search-bar__trigger-input input ember-power-select-search-input"
+  value={{@select.searchText}}
+  aria-controls={{@listboxId}}
+  placeholder={{@placeholder}}
+  {{on "input" @onInput}}
+  {{on "focus" @onFocus}}
+  {{on "blur" @onBlur}}
+  {{on "keydown" this.handleKeydown}}
+>
+{{svg-jar "location" class="search-bar__loc-icon" width="24px"}}

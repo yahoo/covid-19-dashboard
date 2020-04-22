@@ -1,0 +1,50 @@
+{{!-- Copyright 2020, Verizon Media. Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms. --}}
+<div class="help-links" ...attributes>
+  <h5 class="help-links__title p-b-10">
+    {{t "helpTitle"}}
+  </h5>
+  <div class="help-links__links flex flex-column">
+    <a
+      class="help-links__link p-y-5 has-icon-back"
+      href="https://www.cdc.gov/coronavirus/2019-ncov/index.html"
+      target="_blank"
+      rel="noopener noreferrer"
+      title={{t "cdcTitle"}}
+    >
+      <span>{{t "cdc"}}</span>
+      {{svg-jar "external"
+        class="help-links__external-icon"
+        width="10px"
+        height="10px"
+      }}
+    </a>
+    <a
+      class="help-links__link p-y-5 has-icon-back"
+      href="https://www.who.int/health-topics/coronavirus"
+      target="_blank"
+      rel="noopener noreferrer"
+      title={{t "whoTitle"}}
+    >
+      <span>{{t "who"}}</span>
+      {{svg-jar "external"
+        class="help-links__external-icon"
+        width="10px"
+        height="10px"
+      }}
+    </a>
+    <a
+      class="help-links__link p-y-5 has-icon-back"
+      href="https://news.yahoo.com/coronavirus"
+      target="_blank"
+      rel="noopener noreferrer"
+      title={{t "yahooNewsTitle"}}
+    >
+      <span>{{t "yahooNews"}}</span>
+      {{svg-jar "external"
+        class="help-links__external-icon"
+        width="10px"
+        height="10px"
+      }}
+    </a>
+  </div>
+</div>
