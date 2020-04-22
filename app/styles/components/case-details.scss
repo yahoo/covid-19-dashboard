@@ -23,6 +23,12 @@
     text-align: right;
   }
 
+  &__global &__table-change.d-tooltip {
+    &::after {
+      transform: translateX(-85%);
+    }
+  }
+
   &__table-row {
     display: flex;
     padding: 5px 0;
@@ -46,7 +52,7 @@
     color: var(--color-grey-600);
 
     &--active::after {
-      transform: translateX(-25%);
+      transform: translateX(-15%);
     }
   }
 
