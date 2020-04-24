@@ -6,6 +6,7 @@ import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { task } from 'ember-concurrency';
+import { action } from '@ember/object';
 
 export default class DashboardLocationController extends Controller {
   @service elide;
@@ -22,7 +23,9 @@ export default class DashboardLocationController extends Controller {
     return screen.isMobile || (currentLocation?.type && currentLocation.type !== 'global');
   }
 
-  resetMobileView() {
+  @action
+  onLocationSelect(location) {
+    this.router.transitionTo('dashboard.location', location);
     this.mobileView = 'details';
   }
 

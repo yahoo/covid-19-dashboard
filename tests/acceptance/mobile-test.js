@@ -238,7 +238,7 @@ module('Acceptance | mobile', function (hooks) {
       .dom('.mobile-tabs__tab.is-active')
       .hasText('Confirmed Cases by State', 'Case breakdown view is active after clicking the tab');
 
-    await click(`.location-table__list li:nth-of-type(1) a`);
+    await click(`.location-table__list li:nth-of-type(1) div`);
     assert.equal(currentURL(), '/New_York_(state)', 'Clicking `New York (state)` loads the correct location');
 
     await settled();

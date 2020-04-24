@@ -24,6 +24,7 @@
       @fieldToShow="totalConfirmedCases"
       @publishedDate={{this.metadata.publishedDate}}
       @location={{this.currentLocation}}
+      @onLocationClick={{this.onLocationSelect}}
     />
   </section>
   {{#if this.screen.isMobile}}
@@ -54,6 +55,7 @@
         @publishedDate={{this.metadata.publishedDate}}
         @location={{this.currentLocation}}
         @occlusion={{false}}
+        @onLocationSelect={{this.onLocationSelect}}
       />
     </section>
   {{/if}}

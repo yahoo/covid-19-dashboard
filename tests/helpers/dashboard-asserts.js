@@ -27,11 +27,8 @@ export const assertBreakdownTable = (assert, values) => {
   rows.forEach(({ title, value }, idx) => {
     const row = idx + 1;
     assert
-      .dom(`.location-table__list li:nth-of-type(${row}) a`)
+      .dom(`.location-table__list li:nth-of-type(${row}) div`)
       .hasText(title, `Breakdown table shows the correct title in row ${row}`);
-    assert
-      .dom(`.location-table__list li:nth-of-type(${row}) a`)
-      .hasAttribute(`href`, `/${title.replace(/\s/g, `_`)}`, `Breakdown table shows the correct href in row ${row}`);
     assert
       .dom(`.location-table__list li:nth-of-type(${row}) span`)
       .hasText(value, `Breakdown table shows the correct value in row ${row}`);

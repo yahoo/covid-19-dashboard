@@ -33,13 +33,13 @@
         >
           {{#let (get location 'attributes.wikiId') as | locationId |}}
             <li class="location-table__list-item p-y-5 p-x-10 {{if (eq locationId this.selectedLocationId) "active"}}">
-              <LinkTo
+              <div
+                role="button"
                 class="location-table__list-item__place"
-                @route="dashboard.location"
-                @model={{locationId}}
+                {{on "click" (fn @onLocationSelect locationId)}}
               >
                 {{location.attributes.label}}
-              </LinkTo>
+              </div>
               <span class="location-table__list-item__total-confirmed-cases" aria-label={{t (concat "label.total." @fieldToShow)}}>
                 {{format-number (get location.attributes @fieldToShow)}}
               </span>

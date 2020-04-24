@@ -19,7 +19,6 @@ export default class DashboardLocationRoute extends Route {
 
   setupController(controller, model) {
     super.setupController(...arguments);
-    controller.resetMobileView();
     controller.fetchLocation(model).then((location) => {
       if (location) {
         this.updateTitle(location);

@@ -23,16 +23,16 @@
       />
     {{/if}}
     {{#each this.countryRecords as |rec|}}
-      <LocationMarker @rec={{rec}} @layer={{layers}} @fieldToShow={{@fieldToShow}} @onLocationClick={{this.onLocationClick}}  @zoom={{this.currentZoom}}/>
+      <LocationMarker @rec={{rec}} @layer={{layers}} @fieldToShow={{@fieldToShow}} @onLocationClick={{@onLocationClick}}  @zoom={{this.currentZoom}}/>
     {{/each}}
     {{#each this.stateRecords as |rec|}}
       {{#if (or (not this.countyRecords.length) (neq rec.attributes.wikiId this.focusedState.attributes.wikiId))}}
-        <LocationMarker @rec={{rec}} @layer={{layers}} @fieldToShow={{@fieldToShow}} @onLocationClick={{this.onLocationClick}}  @zoom={{this.currentZoom}}/>
+        <LocationMarker @rec={{rec}} @layer={{layers}} @fieldToShow={{@fieldToShow}} @onLocationClick={{@onLocationClick}}  @zoom={{this.currentZoom}}/>
       {{/if}}
     {{/each}}
     {{#each this.countyRecords as |rec|}}
       {{#if (eq rec.relationships.state.data.id this.focusedState.id)}}
-        <LocationMarker @rec={{rec}} @layer={{layers}} @fieldToShow={{@fieldToShow}} @onLocationClick={{this.onLocationClick}} @zoom={{this.currentZoom}} />
+        <LocationMarker @rec={{rec}} @layer={{layers}} @fieldToShow={{@fieldToShow}} @onLocationClick={{@onLocationClick}} @zoom={{this.currentZoom}} />
       {{/if}}
     {{/each}}
   </LeafletMap>

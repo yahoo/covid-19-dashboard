@@ -39,7 +39,6 @@ const REQUEST_FIELDS = [
 
 export default class MapComponent extends Component {
   @service elide;
-  @service router;
   @service screen;
   @tracked countyRecords = [];
   @tracked countryRecords = [];
@@ -158,11 +157,6 @@ export default class MapComponent extends Component {
     }
   })
   fetchGlobalData;
-
-  @action
-  onLocationClick(location) {
-    this.router.transitionTo('dashboard.location', location);
-  }
 
   @action
   setCurrentZoom({ target }) {
