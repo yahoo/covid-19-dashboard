@@ -38,6 +38,7 @@ export default class DistributionChartComponent extends Component {
         labels: {
           show: false,
         },
+        min: 0,
         max: this.args.series.reduce((acc, { data }) => acc + data, 0),
       },
       grid: {

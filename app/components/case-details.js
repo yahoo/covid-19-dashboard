@@ -50,7 +50,7 @@ export default class CaseDetailsComponent extends Component {
 
   @(task(function* (location) {
     this.loading = true;
-    const { data: todayHealthRecords } = yield this.elide.fetch.perform('latestHealthRecords', {
+    const { data: todayHealthRecords } = yield this.elide.fetch.linked().perform('latestHealthRecords', {
       eq: { wikiId: location.attributes.wikiId },
       fields: {
         latestHealthRecords: [
@@ -73,7 +73,7 @@ export default class CaseDetailsComponent extends Component {
     yesterday.setDate(yesterday.getDate() - 1);
     const yesterdayString = `${yesterday.toISOString().slice(0, 16)}Z`;
 
-    const { data: yesterdayHealthRecords } = yield this.elide.fetch.perform('healthRecords', {
+    const { data: yesterdayHealthRecords } = yield this.elide.fetch.linked().perform('healthRecords', {
       eq: { wikiId: location.attributes.wikiId },
       isIn: {
         referenceDate: [yesterdayString],
