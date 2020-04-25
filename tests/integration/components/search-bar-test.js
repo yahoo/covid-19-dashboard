@@ -16,14 +16,16 @@ module('Integration | Component | search-bar', function (hooks) {
 
     await click('.search-bar__trigger');
 
+    this.server.timing = 1000;
     await fillIn('.search-bar__trigger-input', 'cha');
     assert
       .dom('.search-bar .ember-power-select-option--loading-message')
       .exists('While data loads a loading message is rendered');
 
-    await waitFor('.search-bar .ember-power-select-option');
+    await waitFor('.search-bar .ember-power-select-option', { count: 3, timeout: 3000 });
     assert.dom('.search-bar .ember-power-select-option').exists({ count: 3 }, 'Three items are rendered');
 
+    this.server.timing = undefined;
     await fillIn('.search-bar__trigger-input', 'states');
     await waitFor('.search-bar .ember-power-select-option');
     assert.dom('.search-bar .ember-power-select-option').hasText('United States', 'Search also looks for countries');
