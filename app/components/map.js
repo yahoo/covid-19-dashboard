@@ -8,6 +8,7 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import ENV from 'covid-19-dashboard/config/environment';
 import { task, hash } from 'ember-concurrency';
+import { buildWaiter } from 'ember-test-waiters';
 
 const { tileServer, tileServerAttribution } = ENV.APP;
 
@@ -36,6 +37,8 @@ const REQUEST_FIELDS = [
   'totalDeaths',
   'totalRecoveredCases',
 ];
+
+const waiter = buildWaiter('map-zoom-waiter');
 
 export default class MapComponent extends Component {
   @service elide;
@@ -159,8 +162,14 @@ export default class MapComponent extends Component {
   fetchGlobalData;
 
   @action
-  setCurrentZoom({ target }) {
+  zoomStart() {
+    this.waitToken = waiter.beginAsync();
+  }
+
+  @action
+  zoomEnd({ target }) {
     this.currentZoom = target.getZoom();
+    waiter.endAsync(this.waitToken);
   }
 
   @action
