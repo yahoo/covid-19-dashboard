@@ -42,7 +42,7 @@ module.exports = function (environment) {
     metricsAdapters: [
       {
         name: 'covid-ga',
-        environments: ['development', 'production', 'git-pages'],
+        environments: ['development', 'production'],
         config: {
           id: 'UA-86392702-3',
 
@@ -92,12 +92,6 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
-    ENV['ember-cli-mirage'] = {
-      enabled: false, //never change me
-    };
-  }
-
-  if (environment === 'git-pages') {
     ENV['ember-cli-mirage'] = {
       enabled: false, //never change me
     };
