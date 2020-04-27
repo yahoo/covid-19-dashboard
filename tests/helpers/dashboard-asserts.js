@@ -113,7 +113,7 @@ export const assertTitle = (assert, location) => {
   const title = document.querySelector('head title').textContent;
   assert.equal(
     title,
-    `${location} - Covid-19 Tracker - Yahoo Knowledge Graph`,
+    `${location} - COVID-19 Dashboard - Yahoo Knowledge Graph`,
     'Page title matches the expected title'
   );
 };
