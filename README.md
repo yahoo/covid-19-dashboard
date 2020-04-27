@@ -36,10 +36,11 @@ Related project links:
 
 ## Maintainers
 
-- [Jon Kilroy](https://www.linkedin.com/in/jon-kilroy-52545b4/)
-- [Aaron Klish](https://www.linkedin.com/in/aaron-klish-005927/)
-- [Balaji Manoharan](https://www.linkedin.com/in/balaji-manoharan-08006018/)
-- [Kevin Hinterlong](https://www.linkedin.com/in/kevinhinterlong/)
+- [Jon Kilroy](https://www.linkedin.com/in/jon-kilroy-52545b4/) - Developer
+- [Aaron Klish](https://www.linkedin.com/in/aaron-klish-005927/) - Developer
+- [Balaji Manoharan](https://www.linkedin.com/in/balaji-manoharan-08006018/) - Developer
+- [Kevin Hinterlong](https://www.linkedin.com/in/kevinhinterlong/) - Developer
+- [Chas Turansky](https://www.linkedin.com/in/chasturansky) - Designer
 
 Please contact yk-covid-19-os@verizonmedia.com with any questions.
 
