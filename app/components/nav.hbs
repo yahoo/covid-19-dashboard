@@ -5,7 +5,7 @@
     <div class="nav__badge chips has-bg-purple-100 is-purple-500">{{t "covidBadge"}}</div>
   </LinkTo>
   <div class="nav-right p-y-12">
-    <SearchBar class="nav__search-bar" />
+    <SearchBar class="nav__search-bar" @onLocationSelect={{@onLocationSelect}} />
 
     {{!-- Enable when refresh is possible --}}
     <button type="button" class="nav__button button p-x-10 m-r-10 hide-tablet-down" disabled>

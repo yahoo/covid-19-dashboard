@@ -1,5 +1,5 @@
 {{!-- Copyright 2020, Verizon Media. Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms. --}}
-<Nav @timeSinceRefresh={{this.metadata.timeSinceRefresh}} />
+<Nav @timeSinceRefresh={{this.metadata.timeSinceRefresh}} @onLocationSelect={{this.onLocationSelect}} />
 <main class="dashboard">
   {{#unless this.screen.isMobile}}
     <aside class="dashboard__left">

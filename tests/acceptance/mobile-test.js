@@ -11,6 +11,7 @@ import {
   assertLocationDetails,
   assertMap,
 } from '../helpers/dashboard-asserts';
+import { selectChoose, selectSearch } from 'ember-power-select/test-support';
 
 module('Acceptance | mobile', function (hooks) {
   setupApplicationTest(hooks);
@@ -244,6 +245,26 @@ module('Acceptance | mobile', function (hooks) {
     await settled();
     assert.dom('.mobile-tabs__tab.is-active').hasText('Details', 'Details view is active when visiting a new location');
     assert.dom('.dashboard__map-details-header__title').hasText('New York (state) Details', 'Detail view is displayed');
+    assert.dom('.location-table').doesNotExist('Location table is not displayed in details view');
+  });
+
+  test('searching for a location resets to detail view', async function(assert) {
+    await visit('/United_States');
+    assert.equal(currentURL(), '/United_States', '/United_States loads the United States location');
+    await settled();
+
+    await click('.mobile-tabs__tab:not(.is-active)');
+    await settled();
+    assert
+      .dom('.mobile-tabs__tab.is-active')
+      .hasText('Confirmed Cases by State', 'Case breakdown view is active after clicking the tab');
+
+    await selectSearch('.search-bar', 'Alab');
+    await selectChoose('.search-bar', 'Alabama');
+    await settled();
+
+    assert.dom('.mobile-tabs__tab.is-active').hasText('Details', 'Details view is active when visiting a new location');
+    assert.dom('.dashboard__map-details-header__title').hasText('Alabama Details', 'Detail view is displayed');
     assert.dom('.location-table').doesNotExist('Location table is not displayed in details view');
   });
 });

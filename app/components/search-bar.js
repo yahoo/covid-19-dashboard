@@ -64,7 +64,7 @@ export default class SearchBarComponent extends Component {
   @action
   handleSelect(location) {
     scheduleOnce('actions', this.select.actions, 'search', '');
-    this.router.transitionTo('dashboard.location', location.wikiId);
+    this.args.onLocationSelect(location.wikiId);
   }
 
   @action
