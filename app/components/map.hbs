@@ -9,6 +9,7 @@
     @onMoveend={{this.setZoom}}
     @onZoomstart={{this.zoomStart}}
     @onZoomend={{this.zoomEnd}}
+    @worldCopyJump={{true}}
     {{did-insert this.fetchGlobalRecords @publishedDate}}
     {{did-update this.fetchGlobalRecords @publishedDate}}
     {{did-insert this.fetchCountyRecords @location @publishedDate}}
