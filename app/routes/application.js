@@ -4,6 +4,7 @@
  */
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+import ENV from '../config/environment';
 
 export default class ApplicationRoute extends Route {
   @service metrics;
@@ -16,15 +17,23 @@ export default class ApplicationRoute extends Route {
     const { metrics, router } = this;
 
     router.on('routeDidChange', () => {
+      this.maintenanceModeIntercept();
       const page = router.currentURL;
       const title = router.currentRouteName || 'unknown';
       metrics.trackPage({ page, title });
     });
   }
 
+  maintenanceModeIntercept() {
+    if (ENV.environment !== 'test' && ENV.APP.maintenanceMode === true) {
+      this.transitionTo('maintenance');
+    }
+  }
+
   beforeModel() {
     super.beforeModel(...arguments);
-    return this.intl.setLocale(['en-us']);
+    this.intl.setLocale(['en-us']);
+    this.maintenanceModeIntercept();
   }
 
   model() {

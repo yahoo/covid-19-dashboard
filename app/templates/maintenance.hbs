@@ -1,0 +1,60 @@
+{{!-- Copyright 2020, Verizon Media. Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms. --}}
+<nav class="nav" ...attributes>
+  <LinkTo @route="maintenance" class="nav-left">
+    <img class="nav__title m-r-15 is-purple-500" alt="Yahoo Knowledge" src="assets/images/yk-logo.svg" />
+    <div class="nav__badge chips has-bg-purple-100 is-purple-500">{{t "covidBadge"}}</div>
+  </LinkTo>
+    <div class="nav-right p-y-12">
+
+    <div class="nav__menu menu is-right hide-tablet-down">
+      {{!-- template-lint-disable link-href-attributes  --}}
+      <a class="nav__menu-trigger menu-trigger p-r-8">
+        {{svg-jar "github" class="nav__menu-trigger-icon" width="28px" height="28px"}}
+      </a>
+      {{!-- template-lint-enable link-href-attributes  --}}
+      <div class="nav__menu-content menu-content">
+        <a
+          href="https://github.com/yahoo/covid-19-api"
+          class="nav__menu-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          title={{t "repoTitle.api"}}
+        >
+          {{svg-jar "code" class="nav__menu-icon" width="14px" height="14px"}}
+          {{t "repoText.api"}}
+        </a>
+        <a
+          href="https://github.com/yahoo/covid-19-dashboard"
+          class="nav__menu-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          title={{t "repoTitle.dashboard"}}
+        >
+          {{svg-jar "browser-bar-chart" class="nav__menu-icon" width="14px" height="14px"}}
+          {{t "repoText.dashboard"}}
+        </a>
+        <a
+          href="https://github.com/yahoo/covid-19-data"
+          class="nav__menu-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          title={{t "repoTitle.data"}}
+        >
+          {{svg-jar "data-source" class="nav__menu-icon" width="14px" height="14px"}}
+          {{t "repoText.data"}}
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="flex col align-items-center justify-content-center">
+  <div class="maintenance-notice">
+    <div class="maintenance-notice__icon-box flex align-items-center justify-content-center p-y-5">
+      {{svg-jar "time-update" class="maintenance-notice__icon m-20" width="64px" height="64px"}}
+    </div>
+
+    <h2 class="p-y-10">We'll be right back...</h2>
+    <p>Thank you for your patience.</p>
+  </div>
+</div>
