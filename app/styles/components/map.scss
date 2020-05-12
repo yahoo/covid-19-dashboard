@@ -46,9 +46,6 @@
     display: inline-block;
   }
 
-  &__tooltip-dot-active::after {
-    background: var(--color-sky);
-  }
   &__tooltip-dot-recovered::after {
     background: var(--color-lime);
   }

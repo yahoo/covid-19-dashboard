@@ -4,10 +4,10 @@
   {{#unless this.screen.isMobile}}
     <aside class="dashboard__left">
       <CaseDetails
-        class="dashboard__global-case-details p-20"
+        class="dashboard__global-case-details p-x-30 p-y-20"
         @title={{t "globalConfirmedCases"}}
         @publishedDate={{this.metadata.publishedDate}}
-        @location={{hash attributes=(hash wikiId="Earth")}}
+        @location={{hash id=this.globalId}}
       />
       <LocationTable
         class="p-t-20 dashboard__divider"
@@ -20,11 +20,12 @@
     </aside>
   {{/unless}}
   <section class="dashboard__map-container">
-    <MapHeader class="dashboard__map-header" @location={{this.currentLocation}} />
+    <MapHeader class="dashboard__map-header" @locationLineage={{this.locationLineage}} />
     <Map class="dashboard__map"
       @fieldToShow="totalConfirmedCases"
       @publishedDate={{this.metadata.publishedDate}}
       @location={{this.currentLocation}}
+      @locationLineage={{this.locationLineage}}
       @onLocationClick={{this.onLocationSelect}}
     />
   </section>

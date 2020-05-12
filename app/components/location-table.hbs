@@ -5,9 +5,9 @@
   {{did-insert this.fetchData @location @publishedDate}}
   {{did-update this.fetchData @location @publishedDate}}
 >
-  <div class="flex align-items-center p-l-20 p-b-10">
-    {{#if this.parentLocationId}}
-      <LinkTo class="p-r-10 flex align-items-center" @route="dashboard.location" @model={{this.parentLocationId}}>
+  <div class="flex align-items-center p-l-30 p-b-10">
+    {{#if this.locationParentId}}
+      <LinkTo class="p-r-10 flex align-items-center" @route="dashboard.location" @model={{this.locationParentId}}>
         {{svg-jar "arrowhead-left-circle"
           class="location-table__title__up"
           width="18px"
@@ -15,7 +15,7 @@
         }}
       </LinkTo>
     {{/if}}
-    <h4 class="location-table__title flex-1">{{t this.title}}</h4>
+    <h4 class="location-table__title flex-1">{{t "confirmedCases"}}</h4>
   </div>
 
   {{#if this.loading}}
@@ -23,16 +23,16 @@
       <div class="loader is-medium"></div>
     </div>
   {{else}}
+    <lr/>
     {{#if this.locations}}
       <ul class="location-table__list p-l-20 p-b-10">
         <ListIterator
           @occlusion={{@occlusion}}
           @locations={{this.locations}}
-          @idForFirstItem={{this.selectedLocationId}}
           as |location|
         >
-          {{#let (get location 'attributes.wikiId') as | locationId |}}
-            <li class="location-table__list-item p-y-5 p-x-10 {{if (eq locationId this.selectedLocationId) "active"}}">
+          {{#let (get location 'relationships.place.data.id') as | locationId |}}
+            <li class="location-table__list-item p-y-5 p-x-10">
               <div
                 role="button"
                 class="location-table__list-item__place"

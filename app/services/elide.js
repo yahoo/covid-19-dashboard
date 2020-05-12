@@ -6,6 +6,7 @@ import Service from '@ember/service';
 import ENV from 'covid-19-dashboard/config/environment';
 import { task } from 'ember-concurrency';
 import { v1 } from 'uuid';
+import fetch from 'fetch';
 
 const { host, namespace = '' } = ENV.APP;
 
@@ -26,6 +27,7 @@ const operators = {
   search: (f, v) => `${f}=='*${v}*'`,
   isNull: (f, v) => `${v}=isnull=true`,
   notNull: (f, v) => `${v}=isnull=false`,
+  isEmpty: (f, v) => `${v}=isempty=true`,
   lt: (f, v) => `${f}=lt=${v}`,
   gt: (f, v) => `${f}=gt=${v}`,
   le: (f, v) => `${f}=le=${v}`,

@@ -35,7 +35,7 @@ module.exports = function (environment) {
       namespace: '/api/json/v1',
       tileServer,
       tileServerAttribution,
-      maintenanceMode: true,
+      maintenanceMode: false,
     },
     'ember-metrics': {
       includeAdapters: ['google-analytics'],

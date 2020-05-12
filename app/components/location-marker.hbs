@@ -8,7 +8,7 @@
     @color="#1bc6f3"
     @bubblingMouseEvents={{true}}
     @center={{true}}
-    @onClick={{fn @onLocationClick @rec.attributes.wikiId}} as |marker|>
+    @onClick={{fn @onLocationClick @rec.relationships.place.data.id}} as |marker|>
     <marker.tooltip>
       <div class="map__tooltip">
         <div class="map__tooltip-header">{{@rec.attributes.label}}</div>
@@ -17,13 +17,6 @@
           <div class="map__tooltip-metric-count">{{format-number @rec.attributes.totalConfirmedCases}}</div>
         </div>
         <div class="map__tooltip-breakdown m-t-5">
-          <div class="map__tooltip-metric">
-            <div class="map__tooltip-metric-label">
-              <div class="map__tooltip-dot map__tooltip-dot-active"></div>
-              {{t "active"}}
-            </div>
-            <div class="map__tooltip-metric-count">{{format-number @rec.attributes.numActiveCases}}</div>
-          </div>
           <div class="map__tooltip-metric">
             <div class="map__tooltip-metric-label">
               <div class="map__tooltip-dot map__tooltip-dot-fatal"></div>

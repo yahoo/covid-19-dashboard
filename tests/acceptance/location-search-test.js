@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { visit, currentURL, settled, findAll } from '@ember/test-helpers';
+import { visit, currentURL, findAll } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import { selectChoose, selectSearch } from 'ember-power-select/test-support';
@@ -21,7 +21,6 @@ module('Acceptance | location search', function (hooks) {
 
   test('search for locations', async function (assert) {
     await visit('/');
-    await settled();
 
     await selectSearch('.search-bar', 'z');
     assert
@@ -35,14 +34,14 @@ module('Acceptance | location search', function (hooks) {
     const locations = findAll('.ember-power-select-option').map((e) => e.textContent.trim());
     assert.deepEqual(
       locations,
-      ['Colombia', 'Colorado', 'District of Columbia', 'Colbert County, Alabama'],
+      ['Colorado', 'Coles County, Illinois', 'Colbert County, Alabama', 'Lincolnshire'],
       'Search can find counties, states, and countries'
     );
   });
 
   test('search api failure', async function (assert) {
     await visit('/');
-    this.server.get('/states', () => new Response(401));
+    this.server.get('/places', () => new Response(401));
     await selectSearch('.search-bar', 'Alab');
     assert
       .dom('.ember-power-select-option--no-matches-message')
@@ -51,23 +50,20 @@ module('Acceptance | location search', function (hooks) {
 
   test('search and navigate to a location', async function (assert) {
     await visit('/Illinois');
-    await settled();
     assert.equal(currentURL(), '/Illinois', 'Start off at the default route');
     assertTitle(assert, 'Illinois');
 
     await selectSearch('.search-bar', 'Alab');
     await selectChoose('.search-bar', 'Alabama');
-    await settled();
     assert.equal(currentURL(), '/Alabama', 'Selecting `Alabama` from the results transitions to the correct location');
     assertTitle(assert, 'Alabama');
 
     assertGlobalDetails(assert);
 
     assertBreakdownTable(assert, {
-      title: 'Confirmed Cases by County',
       rows: [
-        { title: 'Jefferson County, Alabama', value: '345' },
-        { title: 'Madison County, Alabama', value: '119' },
+        { title: 'Mobile County, Alabama', value: '1,078' },
+        { title: 'Jefferson County, Alabama', value: '900' },
       ],
     });
 
@@ -78,25 +74,20 @@ module('Acceptance | location search', function (hooks) {
     ]);
 
     assertMap(assert, {
-      markerCount: 284,
+      markerCount: 126,
       showPin: true,
     });
 
     assertLocationDetails(assert, {
       title: 'Alabama Details',
-      population: '4,486,508',
+      population: '4,903,185',
       wikiId: 'Alabama',
     });
 
     assertLocationCaseDetails(assert, {
-      casesTotal: '1,315',
-      casesChange: '-- | --',
-      activeTotal: '0',
-      activeChange: '--',
-      fatalTotal: '32',
-      fatalChange: '0',
-      recoveredTotal: '0',
-      recoveredChange: '0',
+      casesTotal: '7,085',
+      fatalTotal: '279',
+      recoveredTotal: '--',
     });
   });
 });

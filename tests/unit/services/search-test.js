@@ -1,10 +1,10 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-module('Unit | Service | search', function(hooks) {
+module('Unit | Service | search', function (hooks) {
   setupTest(hooks);
 
-  test('getPartialMatchWeight', function(assert) {
+  test('getPartialMatchWeight', function (assert) {
     assert.expect(6);
 
     const service = this.owner.lookup('service:search');
@@ -44,7 +44,7 @@ module('Unit | Service | search', function(hooks) {
     assert.ok(weight1 > weight2, 'Closer match has smaller match weight');
   });
 
-  test('searchRecords', function(assert) {
+  test('searchRecords', function (assert) {
     assert.expect(2);
 
     const service = this.owner.lookup('service:search');
@@ -52,20 +52,20 @@ module('Unit | Service | search', function(hooks) {
     let records = [
       {
         id: 'bike',
-        description: 'All Bikes'
+        description: 'All Bikes',
       },
       {
         id: '123456',
-        description: 'Sport Bike'
+        description: 'Sport Bike',
       },
       {
         id: '1234567',
-        description: 'Bowser'
+        description: 'Bowser',
       },
       {
         id: '123',
-        description: 'Standard Kart'
-      }
+        description: 'Standard Kart',
+      },
     ];
 
     assert.deepEqual(
@@ -73,12 +73,20 @@ module('Unit | Service | search', function(hooks) {
       [
         {
           description: 'All Bikes',
-          id: 'bike'
+          id: 'bike',
         },
         {
           description: 'Sport Bike',
-          id: '123456'
-        }
+          id: '123456',
+        },
+        {
+          id: '1234567',
+          description: 'Bowser',
+        },
+        {
+          id: '123',
+          description: 'Standard Kart',
+        },
       ],
       'The matching records are returned and sorted by relevance of description'
     );
@@ -88,16 +96,20 @@ module('Unit | Service | search', function(hooks) {
       [
         {
           description: 'Standard Kart',
-          id: '123'
+          id: '123',
         },
         {
           description: 'Sport Bike',
-          id: '123456'
+          id: '123456',
         },
         {
           description: 'Bowser',
-          id: '1234567'
-        }
+          id: '1234567',
+        },
+        {
+          description: 'All Bikes',
+          id: 'bike',
+        },
       ],
       'The matching records are returned now sorted by relevance of ids'
     );

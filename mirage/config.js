@@ -1,4 +1,5 @@
 import ENV from 'covid-19-dashboard/config/environment';
+import { isPresent, isEmpty } from '@ember/utils';
 const { host, namespace } = ENV.APP;
 
 const operators = {
@@ -6,6 +7,7 @@ const operators = {
   isIn: '=in=',
   isNull: '=isnull=true',
   notNull: '=isnull=false',
+  isEmpty: '=isempty=true',
   lt: '=lt=',
   gt: '=gt=',
   le: '=le=',
@@ -24,13 +26,14 @@ const filterOperations = {
   },
   [operators.isIn]: (recValue, filterValue) => {
     const [, value] = filterValue.match(/^\((.*)\)$/);
-    return unEscapeValue(value)
-      .split(',')
+    return value
+      .split(/^\\,/)
       .map((v) => (v.match(/^'(.*)'$/) || [])[1])
-      .some((v) => v === recValue);
+      .some((v) => unEscapeValue(v) === recValue);
   },
   [operators.isNull]: (recValue) => recValue === null || recValue === undefined,
   [operators.notNull]: (recValue) => recValue !== null && recValue !== undefined,
+  [operators.isEmpty]: (recValue) => isEmpty(recValue),
   [operators.lt]: (recValue, filterValue) => recValue < filterValue,
   [operators.gt]: (recValue, filterValue) => recValue > filterValue,
   [operators.le]: (recValue, filterValue) => recValue <= filterValue,
@@ -49,19 +52,32 @@ const getColumn = (schema, model, fieldName) => {
   }
 
   if (fieldName.includes('.')) {
-    const [relationship, field] = fieldName.split('.');
-    Object.assign(column, { relationship, field });
+    const parts = fieldName.split('.');
+    const field = parts.pop();
+    Object.assign(column, { relationships: parts, field });
   }
   return column;
 };
 
-const getValue = (rec, column, schema, model) => {
-  if (column.relationship) {
-    const { modelName, foreignKey } = schema.associationsFor(model)[column.relationship];
-    const foreignKeyValue = rec[foreignKey];
-    return foreignKeyValue ? schema.find(modelName, rec[foreignKey])?.[column.field] : undefined;
+const getValue = (record, { relationships, field }, schema, modelName) => {
+  if (relationships?.length) {
+    const terminalRecord = relationships
+      .reduce(
+        ({ modelName, models }, relationship) => {
+          if (modelName) {
+            const { modelName: relationshipModelName, foreignKey } = schema.associationsFor(modelName)[relationship];
+            const foreignKeyValues = models.map((r) => r[foreignKey]).filter(isPresent);
+            return foreignKeyValues.length ? schema.find(relationshipModelName, foreignKeyValues) : [];
+          } else {
+            return [];
+          }
+        },
+        { modelName, models: [record] }
+      )
+      .filter((r) => r);
+    return terminalRecord?.models?.map((rec) => rec[field]);
   } else {
-    return rec[column.field];
+    return record[field];
   }
 };
 

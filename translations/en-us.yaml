@@ -1,12 +1,7 @@
 empty: ''
 covidBadge: 'COVID-19 Dashboard'
-casesBy:
-  country: 'Confirmed Cases by Country'
-  state: 'Confirmed Cases by State'
-  county: 'Confirmed Cases by County'
 total: 'Total'
 globalConfirmedCases: 'Global Confirmed Cases'
-active: 'Active'
 fatal: 'Fatal'
 recovered: 'Recovered'
 updated: 'Updated'
@@ -44,11 +39,6 @@ repoText:
   data: 'Data'
   dashboard: 'Dashboard'
 label:
-  dod:
-    totalConfirmedCases: 'Confirmed Daily Change'
-    numActiveCases: 'Active Daily Change'
-    numDeaths: 'Fatal Daily Change'
-    numRecoveredCases: 'Recovered Daily Change'
   total:
     totalConfirmedCases: 'Total Confirmed'
     numActiveCases: 'Total Active'

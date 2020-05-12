@@ -1,15 +1,17 @@
 {{!-- Copyright 2020, Verizon Media. Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms. --}}
 <div class="dashboard__map-details-header flex align-items-center">
   <h4 class="dashboard__map-details-header__title flex-1">{{t "locationDetails" location=@location.attributes.label}}</h4>
-  <a
-    class="dashboard__map-details-header__wiki-link"
-    href="https://en.wikipedia.org/wiki/{{@location.attributes.wikiId}}"
-    title={{t "wikiLinkTitle"}}
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    {{svg-jar "domain" title=(t "wikiLinkTitle") class="dashboard__map-details-header__wiki-icon" width="16px" height="16px"}}
-  </a>
+  {{#if @location.attributes.wikiId}}
+    <a
+      class="dashboard__map-details-header__wiki-link"
+      href="https://en.wikipedia.org/wiki/{{@location.attributes.wikiId}}"
+      title={{t "wikiLinkTitle"}}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {{svg-jar "domain" title=(t "wikiLinkTitle") class="dashboard__map-details-header__wiki-icon" width="16px" height="16px"}}
+    </a>
+  {{/if}}
 </div>
 <div class="dashboard__map-details__population m-y-10 flex space-between is-grey-700">
   <div class="dashboard__map-details__population-label">{{t "population"}}</div>

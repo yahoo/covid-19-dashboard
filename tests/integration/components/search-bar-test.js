@@ -17,7 +17,8 @@ module('Integration | Component | search-bar', function (hooks) {
     await click('.search-bar__trigger');
 
     this.server.timing = 1000;
-    await fillIn('.search-bar__trigger-input', 'cha');
+    fillIn('.search-bar__trigger-input', 'cha');
+    await waitFor('.search-bar .ember-power-select-option--loading-message');
     assert
       .dom('.search-bar .ember-power-select-option--loading-message')
       .exists('While data loads a loading message is rendered');

@@ -1,38 +1,34 @@
 import { findAll } from '@ember/test-helpers';
 
 export const assertGlobalDetails = (assert, parent = '.dashboard__global-case-details') => {
-  const casesTotal = '1,076,017',
-    casesChange = '+1,000 | +0.1%',
-    fatalTotal = '58,004',
-    fatalChange = '0';
-
-  assert.dom(`${parent} .case-details__cases-total`).hasText(casesTotal, 'Case details are correct for total cases');
-  assert
-    .dom(`${parent} .case-details__cases-change`)
-    .hasText(casesChange, 'Case details are correct for daily total cases');
+  const casesTotal = '3,227,909';
+  const fatalTotal = '232,990';
 
   assert
-    .dom(`${parent} .case-details__table-total`)
+    .dom(`${parent} .case-details__metric-value__confirmed`)
+    .hasText(casesTotal, 'Case details are correct for total cases');
+
+  assert
+    .dom(`${parent} .case-details__metric-value__fatal`)
     .hasText(fatalTotal, 'Case details are correct for total fatal cases');
-  assert
-    .dom(`${parent} .case-details__table-change`)
-    .hasText(fatalChange, 'Case details are correct for daily fatal cases');
 };
 
 export const assertBreakdownTable = (assert, values) => {
-  const { title, rows } = values;
+  const { rows } = values;
 
-  assert.dom('.location-table__title').hasText(title, 'Location shows correct breakdown table title');
-
-  rows.forEach(({ title, value }, idx) => {
-    const row = idx + 1;
-    assert
-      .dom(`.location-table__list li:nth-of-type(${row}) div`)
-      .hasText(title, `Breakdown table shows the correct title in row ${row}`);
-    assert
-      .dom(`.location-table__list li:nth-of-type(${row}) span`)
-      .hasText(value, `Breakdown table shows the correct value in row ${row}`);
-  });
+  if (rows?.length) {
+    rows.forEach(({ title, value }, idx) => {
+      const row = idx + 1;
+      assert
+        .dom(`.location-table__list li:nth-of-type(${row}) div`)
+        .hasText(title, `Breakdown table shows the correct title in row ${row}`);
+      assert
+        .dom(`.location-table__list li:nth-of-type(${row}) span`)
+        .hasText(value, `Breakdown table shows the correct value in row ${row}`);
+    });
+  } else {
+    assert.dom(`.location-table__empty`).exists('Breakdown table show no data indicator');
+  }
 };
 
 export const assertBreadCrumb = (assert, values) => {
@@ -64,49 +60,31 @@ export const assertLocationDetails = (assert, values) => {
   assert
     .dom('.dashboard__map-details__population-count')
     .hasText(population, 'A location shows correct population value');
-  assert
-    .dom('.dashboard__map-details-header__wiki-link')
-    .hasAttribute('href', `https://en.wikipedia.org/wiki/${wikiId}`, 'A location has the correct wiki link');
+
+  if (wikiId) {
+    assert
+      .dom('.dashboard__map-details-header__wiki-link')
+      .hasAttribute('href', `https://en.wikipedia.org/wiki/${wikiId}`, 'A location has the correct wiki link');
+  } else {
+    assert.dom('.dashboard__map-details-header__wiki-link').doesNotExist('A location does not have a wiki link');
+  }
 };
 
 export const assertLocationCaseDetails = (assert, values) => {
-  const {
-    casesTotal,
-    casesChange,
-    activeTotal,
-    activeChange,
-    fatalTotal,
-    fatalChange,
-    recoveredTotal,
-    recoveredChange,
-  } = values;
+  const { casesTotal, fatalTotal, recoveredTotal } = values;
   const parent = '.dashboard__location-case-details';
 
-  assert.dom(`${parent} .case-details__cases-total`).hasText(casesTotal, 'Case details are correct for total cases');
   assert
-    .dom(`${parent} .case-details__cases-change`)
-    .hasText(casesChange, 'Case details are correct for daily total cases');
+    .dom(`${parent} .case-details__metric-value__confirmed`)
+    .hasText(casesTotal, 'Case details are correct for total cases');
 
   assert
-    .dom(`${parent} .case-details__table-col--active .case-details__table-total`)
-    .hasText(activeTotal, 'Case details are correct for total active cases');
-  assert
-    .dom(`${parent} .case-details__table-col--active .case-details__table-change`)
-    .hasText(activeChange, 'Case details are correct for daily active cases');
-
-  assert
-    .dom(`${parent} .case-details__table-col--fatal .case-details__table-total`)
+    .dom(`${parent} .case-details__metric-value__fatal`)
     .hasText(fatalTotal, 'Case details are correct for total fatal cases');
-  assert
-    .dom(`${parent} .case-details__table-col--fatal .case-details__table-change`)
-    .hasText(fatalChange, 'Case details are correct for daily fatal cases');
 
   assert
-    .dom(`${parent} .case-details__table-col--recovered .case-details__table-total`)
+    .dom(`${parent} .case-details__metric-value__recovered`)
     .hasText(recoveredTotal, 'Case details are correct for total recovered cases');
-  assert
-    .dom(`${parent} .case-details__table-col--recovered .case-details__table-change`)
-    .hasText(recoveredChange, 'Case details are correct for daily recovered cases');
 };
 
 export const assertTitle = (assert, location) => {

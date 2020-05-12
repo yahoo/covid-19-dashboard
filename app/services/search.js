@@ -35,7 +35,7 @@ export default class SearchService extends Service {
         string = string.replace(searchTokens[i], '');
         // Partial match of a token must start with the search-token
         // (avoid age matching language)
-      } else if (stringTokens.every(token => !token.startsWith(searchTokens[i]))) {
+      } else if (stringTokens.every((token) => !token.startsWith(searchTokens[i]))) {
         allTokensFound = false;
         break;
       }
@@ -60,18 +60,21 @@ export default class SearchService extends Service {
    * @returns {Array} array of matching records
    */
   searchRecords(records, query, searchField) {
-    let results = arr();
-    query = query.toLowerCase();
+    const withRelevance = arr();
+    const noRelevance = arr();
 
     for (let i = 0; i < records.length; i++) {
-      let record = records[i],
-        relevance = this.getPartialMatchWeight(record[searchField].toLowerCase(), query);
+      const record = records[i];
+      const relevance = this.getPartialMatchWeight(record[searchField].toLowerCase(), query.toLowerCase());
 
       if (relevance) {
-        results.push({ relevance, record });
+        withRelevance.push({ relevance, record });
+      } else {
+        noRelevance.push(record);
       }
     }
 
-    return arr(results.sortBy('relevance')).mapBy('record');
+    const results = arr([...withRelevance.sortBy('relevance').mapBy('record'), ...noRelevance]);
+    return results;
   }
 }

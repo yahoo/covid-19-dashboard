@@ -5,15 +5,15 @@
     @center={{this.centerLocation}}
     @zoom={{this.zoom}}
     @minZoom={{1}}
-    @maxZoom={{10}}
+    @maxZoom={{this.maxZoom}}
     @onMoveend={{this.setZoom}}
     @onZoomstart={{this.zoomStart}}
     @onZoomend={{this.zoomEnd}}
     @worldCopyJump={{true}}
     {{did-insert this.fetchGlobalRecords @publishedDate}}
     {{did-update this.fetchGlobalRecords @publishedDate}}
-    {{did-insert this.fetchCountyRecords @location @publishedDate}}
-    {{did-update this.fetchCountyRecords @location @publishedDate}}
+    {{did-insert this.fetchLocationRecords @location @publishedDate}}
+    {{did-update this.fetchLocationRecords @location @publishedDate}}
     ...attributes
     as |layers|
   >
@@ -25,17 +25,15 @@
       />
     {{/if}}
     {{#each this.countryRecords as |rec|}}
-      <LocationMarker @rec={{rec}} @layer={{layers}} @fieldToShow={{@fieldToShow}} @onLocationClick={{@onLocationClick}}  @zoom={{this.currentZoom}}/>
+      <LocationMarker @rec={{rec}} @layer={{layers}} @fieldToShow={{@fieldToShow}} @onLocationClick={{@onLocationClick}} @zoom={{this.currentZoom}}/>
     {{/each}}
-    {{#each this.stateRecords as |rec|}}
-      {{#if (or (not this.countyRecords.length) (neq rec.attributes.wikiId this.focusedState.attributes.wikiId))}}
-        <LocationMarker @rec={{rec}} @layer={{layers}} @fieldToShow={{@fieldToShow}} @onLocationClick={{@onLocationClick}}  @zoom={{this.currentZoom}}/>
+    {{#each this.stateAdminAreaRecords as |rec|}}
+      {{#if (not (contains rec.relationships.place.data.id this.locationLineageIds))}}
+        <LocationMarker @rec={{rec}} @layer={{layers}} @fieldToShow={{@fieldToShow}} @onLocationClick={{@onLocationClick}} @zoom={{this.currentZoom}}/>
       {{/if}}
     {{/each}}
-    {{#each this.countyRecords as |rec|}}
-      {{#if (eq rec.relationships.state.data.id this.focusedState.id)}}
-        <LocationMarker @rec={{rec}} @layer={{layers}} @fieldToShow={{@fieldToShow}} @onLocationClick={{@onLocationClick}} @zoom={{this.currentZoom}} />
-      {{/if}}
+    {{#each this.locationRecords as |rec|}}
+      <LocationMarker @rec={{rec}} @layer={{layers}} @fieldToShow={{@fieldToShow}} @onLocationClick={{@onLocationClick}} @zoom={{this.currentZoom}} />
     {{/each}}
   </LeafletMap>
 {{else}}

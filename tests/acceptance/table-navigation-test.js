@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { click, visit, currentURL, settled } from '@ember/test-helpers';
+import { click, visit, currentURL } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import Service from '@ember/service';
@@ -17,39 +17,35 @@ module('Acceptance | table navigation', function (hooks) {
 
   test('navigating to a location via the table - desktop', async function (assert) {
     await visit('/California');
-    await settled();
     assert.equal(currentURL(), '/California', 'Start off at a location');
     assertTitle(assert, 'California');
 
     await click(`.location-table__list li:nth-of-type(1) div`);
-    await settled();
 
-    assert.equal(currentURL(), '/New_York_(state)', 'Clicking on a table location transitions to that location');
-    assertTitle(assert, 'New York (state)');
+    assert.equal(
+      currentURL(),
+      '/Los_Angeles_County,_California',
+      'Clicking on a table location transitions to that location'
+    );
+    assertTitle(assert, 'Los Angeles County, California');
 
     assertBreadCrumb(assert, [
       { title: 'Global', href: '/' },
       { title: 'United States', href: '/United_States' },
-      { title: 'New York (state)', href: '/New_York_(state)' },
+      { title: 'California', href: '/California' },
+      { title: 'Los Angeles County, California', href: '/Los_Angeles_County,_California' },
     ]);
 
     assertLocationDetails(assert, {
-      title: 'New York (state) Details',
-      population: '19,157,532',
-      wikiId: 'New_York_(state)',
+      title: 'Los Angeles County, California Details',
+      population: '10,039,107',
+      wikiId: 'Los_Angeles_County,_California',
     });
 
-    await settled();
-
     assertLocationCaseDetails(assert, {
-      casesTotal: '102,863',
-      casesChange: '-- | --',
-      activeTotal: '0',
-      activeChange: '--',
-      fatalTotal: '2,935',
-      fatalChange: '0',
-      recoveredTotal: '0',
-      recoveredChange: '0',
+      casesTotal: '23,284',
+      fatalTotal: '1,111',
+      recoveredTotal: '--',
     });
   });
 
@@ -61,42 +57,37 @@ module('Acceptance | table navigation', function (hooks) {
       }
     );
     await visit('/California');
-    await settled();
     assert.equal(currentURL(), '/California', 'Start off at a location');
     assertTitle(assert, 'California');
 
     await click('.mobile-tabs__tab:not(.is-active)');
-    await settled();
 
     await click(`.location-table__list li:nth-of-type(1) div`);
 
-    await settled();
-    assert.equal(currentURL(), '/New_York_(state)', 'Clicking on a table location transitions to that location');
-    assertTitle(assert, 'New York (state)');
+    assert.equal(
+      currentURL(),
+      '/Los_Angeles_County,_California',
+      'Clicking on a table location transitions to that location'
+    );
+    assertTitle(assert, 'Los Angeles County, California');
 
     assertBreadCrumb(assert, [
       { title: 'Global', href: '/' },
       { title: 'United States', href: '/United_States' },
-      { title: 'New York (state)', href: '/New_York_(state)' },
+      { title: 'California', href: '/California' },
+      { title: 'Los Angeles County, California', href: '/Los_Angeles_County,_California' },
     ]);
 
     assertLocationDetails(assert, {
-      title: 'New York (state) Details',
-      population: '19,157,532',
-      wikiId: 'New_York_(state)',
+      title: 'Los Angeles County, California Details',
+      population: '10,039,107',
+      wikiId: 'Los_Angeles_County,_California',
     });
 
-    await settled();
-
     assertLocationCaseDetails(assert, {
-      casesTotal: '102,863',
-      casesChange: '-- | --',
-      activeTotal: '0',
-      activeChange: '--',
-      fatalTotal: '2,935',
-      fatalChange: '0',
-      recoveredTotal: '0',
-      recoveredChange: '0',
+      casesTotal: '23,284',
+      fatalTotal: '1,111',
+      recoveredTotal: '--',
     });
   });
 });

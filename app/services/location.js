@@ -4,56 +4,45 @@
  */
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
-import { all, task } from 'ember-concurrency';
+import { task } from 'ember-concurrency';
 
 export const GLOBAL_ID = 'Earth';
+
+export const SUPERNAME_TYPE = 'Supername';
+export const COUNTRY_TYPE = 'Country';
+export const STATE_ADMIN_AREA_TYPE = 'StateAdminArea';
+export const COUNTY_ADMIN_AREA_TYPE = 'CountyAdminArea';
 
 export default class LocationService extends Service {
   @service elide;
 
-  @task(function* (wikiId) {
-    const counties = this.elide.fetch.perform('counties', {
-      eq: { wikiId },
+  @task(function* (id) {
+    const place = yield this.elide.fetch.perform('places', {
+      eq: { id },
       fields: {
-        counties: ['id', 'label', 'latitude', 'longitude', 'population', 'wikiId'],
-        states: ['id', 'label', 'wikiId'],
-        countries: ['id', 'label', 'wikiId'],
+        places: ['id', 'label', 'latitude', 'longitude', 'population', 'wikiId', 'placeType', 'parents'],
       },
-      include: ['state', 'state.country'],
-    });
-    const states = this.elide.fetch.perform('states', {
-      eq: { wikiId },
-      fields: {
-        states: ['id', 'label', 'latitude', 'longitude', 'population', 'wikiId', 'counties'],
-        countries: ['id', 'label', 'wikiId'],
-      },
-      include: ['country'],
-    });
-    const countries = this.elide.fetch.perform('countries', {
-      eq: { wikiId },
-      fields: { countries: ['id', 'label', 'latitude', 'longitude', 'population', 'wikiId', 'states'] },
     });
 
-    const locations = yield all([counties, states, countries]);
-    const location = locations.find((loc) => loc.data?.length);
-    if (location) {
-      const [selectedLocation] = location.data;
-      const country = location.included?.find((rel) => rel.type === 'countries');
-      const state = location.included?.find((rel) => rel.type === 'states');
-      const type = selectedLocation.attributes.wikiId === GLOBAL_ID ? 'global' : selectedLocation.type;
-      return {
-        ...selectedLocation,
-        country,
-        state,
-        type,
-      };
-    } else {
-      return undefined;
-    }
+    return place?.data?.[0];
   })
   fetchTask;
 
-  fetch(wikiId) {
-    return this.fetchTask.perform(wikiId);
-  }
+  @task(function* (id) {
+    const locations = [];
+    while (id) {
+      const place = (yield this.elide.fetch.perform('places', {
+        eq: { id },
+        fields: {
+          places: ['id', 'label', 'placeType', 'parents'],
+        },
+      }))?.data?.[0];
+      if (place.id !== GLOBAL_ID) {
+        locations.unshift(place);
+      }
+      id = place?.relationships.parents.data?.[0]?.id;
+    }
+    return locations;
+  })
+  fetchLineageTask;
 }

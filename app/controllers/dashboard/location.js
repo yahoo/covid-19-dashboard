@@ -7,6 +7,7 @@ import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { task } from 'ember-concurrency';
 import { action } from '@ember/object';
+import { GLOBAL_ID } from '../../services/location';
 
 export default class DashboardLocationController extends Controller {
   @service elide;
@@ -16,11 +17,14 @@ export default class DashboardLocationController extends Controller {
   @service router;
 
   @tracked currentLocation;
+  @tracked locationLineage;
   @tracked mobileView = 'details';
+
+  globalId = GLOBAL_ID;
 
   get showLocationCaseDetails() {
     const { screen, currentLocation } = this;
-    return screen.isMobile || (currentLocation?.type && currentLocation.type !== 'global');
+    return screen.isMobile || currentLocation?.id !== GLOBAL_ID;
   }
 
   @action
@@ -29,13 +33,22 @@ export default class DashboardLocationController extends Controller {
     this.mobileView = 'details';
   }
 
-  @(task(function* (wikiId) {
-    const currentLocation = yield this.location.fetch(wikiId);
-    return (this.currentLocation = currentLocation);
+  @(task(function* (id) {
+    const lineage = yield this.location.fetchLineageTask.perform(id);
+    this.locationLineage = lineage;
+  }).restartable())
+  fetchLocationLineageTask;
+
+  @(task(function* (id) {
+    const location = yield this.location.fetchTask.perform(id);
+    if (location) {
+      this.fetchLocationLineageTask.perform(location.id);
+    }
+    return (this.currentLocation = location);
   }).restartable())
   fetchLocationTask;
 
-  fetchLocation(wikiId) {
-    return this.fetchLocationTask.perform(wikiId);
+  fetchLocation(id) {
+    return this.fetchLocationTask.perform(id);
   }
 }

@@ -3,35 +3,8 @@
  * Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms.
  */
 .case-details {
-  &__cases-total,
-  &__cases-change {
-    display: inline-block;
-  }
-
-  &__table {
-    font-size: 12px;
+  &__metric {
     justify-content: space-between;
-  }
-
-  &__global {
-    font-size: 14px;
-  }
-
-  &__global &__table-total,
-  &__global &__table-change {
-    padding: 0;
-    text-align: right;
-  }
-
-  &__global &__table-change.d-tooltip {
-    &::after {
-      transform: translateX(-85%);
-    }
-  }
-
-  &__table-row {
-    display: flex;
-    padding: 5px 0;
   }
 
   &__distribution-chart {
@@ -41,42 +14,24 @@
     min-height: 95px;
   }
 
-  &__table-label {
+  &__metric-label {
     background: var(--color-grey-300);
     padding: 0 5px;
     height: 20px;
     margin: 3px 0;
   }
 
-  &__table-change {
-    color: var(--color-grey-600);
-
-    &--active::after {
-      transform: translateX(-15%);
-    }
-  }
-
-  &__table-col {
-    padding: 0;
-  }
-
-  &__table-total,
-  &__table-change {
-    text-align: left;
-    margin: 0 8px;
-  }
-
-  &__table-total {
+  &__metric {
     color: var(--color-grey-700);
   }
 
-  &__table-label-text,
-  &__table-dot {
+  &__metric-label-text,
+  &__metric-dot {
     display: inline-block;
     margin-right: 5px;
   }
 
-  &__table-dot::after {
+  &__metric-dot::after {
     content: '';
     height: 8px;
     width: 8px;
@@ -84,13 +39,10 @@
     display: inline-block;
   }
 
-  &__table-dot-active::after {
-    background: var(--color-sky);
-  }
-  &__table-dot-recovered::after {
+  &__metric-dot__recovered::after {
     background: var(--color-lime);
   }
-  &__table-dot-fatal::after {
+  &__metric-dot__fatal::after {
     background: var(--color-yellow);
   }
 

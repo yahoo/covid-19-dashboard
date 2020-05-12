@@ -46,7 +46,6 @@
       cursor: pointer;
       display: flex;
 
-      &.active,
       &:hover {
         background: var(--color-grey-300);
         border-radius: 4px;

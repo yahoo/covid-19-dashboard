@@ -21,7 +21,7 @@ export default class DistributionChartComponent extends Component {
           barHeight: '50%',
         },
       },
-      colors: ['#19c6f4', '#fed800', '#87d812', '#f2f2f2'],
+      colors: ['#fed800', '#87d812', '#f2f2f2'],
       dataLabels: {
         enabled: false,
       },

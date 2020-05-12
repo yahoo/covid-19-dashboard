@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { click, currentURL, settled, visit } from '@ember/test-helpers';
+import { click, currentURL, visit } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import {
@@ -18,7 +18,6 @@ module('Acceptance | breadcrumb navigation', function (hooks) {
 
   test('breadcrumb navigation', async function (assert) {
     await visit('/Jefferson_County,_Alabama');
-    await settled();
 
     assert.equal(currentURL(), '/Jefferson_County,_Alabama', 'Start off at a location');
     assertTitle(assert, 'Jefferson County, Alabama');
@@ -31,38 +30,26 @@ module('Acceptance | breadcrumb navigation', function (hooks) {
     ]);
     assertLocationDetails(assert, {
       title: 'Jefferson County, Alabama Details',
-      population: '662,047',
+      population: '658,573',
       wikiId: 'Jefferson_County,_Alabama',
     });
 
-    await settled();
-
     assertMap(assert, {
-      markerCount: 284,
+      markerCount: 126,
       showPin: true,
     });
     assertLocationCaseDetails(assert, {
-      casesTotal: '345',
-      casesChange: '-- | --',
-      activeTotal: '0',
-      activeChange: '--',
-      fatalTotal: '0',
-      fatalChange: '0',
-      recoveredTotal: '0',
-      recoveredChange: '0',
+      casesTotal: '900',
+      fatalTotal: '46',
+      recoveredTotal: '--',
     });
     assertBreakdownTable(assert, {
-      title: 'Confirmed Cases by County',
-      rows: [
-        { title: 'Jefferson County, Alabama', value: '345' },
-        { title: 'Madison County, Alabama', value: '119' },
-      ],
+      rows: [],
     });
 
     // Click on Alabama
 
     await click('.breadcrumb a:nth-of-type(3)');
-    await settled();
 
     assert.equal(currentURL(), '/Alabama', 'Clicking a breadcrumb item transitions to that location');
     assertTitle(assert, 'Alabama');
@@ -74,38 +61,29 @@ module('Acceptance | breadcrumb navigation', function (hooks) {
     ]);
     assertLocationDetails(assert, {
       title: 'Alabama Details',
-      population: '4,486,508',
+      population: '4,903,185',
       wikiId: 'Alabama',
     });
 
-    await settled();
-
     assertMap(assert, {
-      markerCount: 284,
+      markerCount: 126,
       showPin: true,
     });
     assertLocationCaseDetails(assert, {
-      casesTotal: '1,315',
-      casesChange: '-- | --',
-      activeTotal: '0',
-      activeChange: '--',
-      fatalTotal: '32',
-      fatalChange: '0',
-      recoveredTotal: '0',
-      recoveredChange: '0',
+      casesTotal: '7,085',
+      fatalTotal: '279',
+      recoveredTotal: '--',
     });
     assertBreakdownTable(assert, {
-      title: 'Confirmed Cases by County',
       rows: [
-        { title: 'Jefferson County, Alabama', value: '345' },
-        { title: 'Madison County, Alabama', value: '119' },
+        { title: 'Mobile County, Alabama', value: '1,078' },
+        { title: 'Jefferson County, Alabama', value: '900' },
       ],
     });
 
     // Click on United States
 
     await click('.breadcrumb a:nth-of-type(2)');
-    await settled();
 
     assert.equal(currentURL(), '/United_States', 'Clicking a breadcrumb item transitions to that location');
     assertTitle(assert, 'United States');
@@ -116,31 +94,23 @@ module('Acceptance | breadcrumb navigation', function (hooks) {
     ]);
     assertLocationDetails(assert, {
       title: 'United States Details',
-      population: '328,239,523',
+      population: '326,687,501',
       wikiId: 'United_States',
     });
 
-    await settled();
-
     assertMap(assert, {
-      markerCount: 221,
+      markerCount: 65,
       showPin: true,
     });
     assertLocationCaseDetails(assert, {
-      casesTotal: '261,438',
-      casesChange: '-- | --',
-      activeTotal: '0',
-      activeChange: '--',
-      fatalTotal: '6,699',
-      fatalChange: '0',
-      recoveredTotal: '0',
-      recoveredChange: '0',
+      casesTotal: '1,069,826',
+      fatalTotal: '63,006',
+      recoveredTotal: '--',
     });
     assertBreakdownTable(assert, {
-      title: 'Confirmed Cases by State',
       rows: [
-        { title: 'New York (state)', value: '102,863' },
-        { title: 'New Jersey', value: '25,590' },
+        { title: 'New York (state)', value: '304,372' },
+        { title: 'New Jersey', value: '118,652' },
       ],
     });
   });

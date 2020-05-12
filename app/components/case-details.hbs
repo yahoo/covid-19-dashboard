@@ -7,16 +7,7 @@
 >
   <h4 class="case-details__title">{{@title}}</h4>
   <div class="case-details__cases m-t-5">
-    <h2 class="case-details__cases-total m-r-10">{{format-number this.summaryRecord.totalConfirmedCases}}</h2>
-    <h6 
-      class="case-details__cases-change is-grey-600 d-tooltip" 
-      data-tooltip={{t "label.dod.totalConfirmedCases"}} 
-      aria-label={{t "label.dod.totalConfirmedCases"}} 
-      tabindex="0"
-    >
-      {{format-number this.totalConfirmedCasesDiff showPlus=true}} |
-      {{format-number this.totalConfirmedCasesDiffPercent style="percent" maximumFractionDigits=1 minimumFractionDigits=1 showPlus=true}}
-    </h6>
+    <h2 class="case-details__metric case-details__metric-value__confirmed">{{format-number this.summaryRecord.totalConfirmedCases}}</h2>
   </div>
 
   <DistributionChart
@@ -26,55 +17,33 @@
   />
 
   {{#if this.isGlobal}}
-    <div class="case-details__table case-details__global flex align-items-center">
-      <div class="case-details__table-label tag">
-        <div class="case-details__table-dot case-details__table-dot-fatal"></div>
-        <div class="case-details__table-label-text">{{t "fatal"}}</div>
+    <div class="case-details__metric flex align-items-center">
+      <div class="case-details__metric-label tag">
+        <div class="case-details__metric-dot case-details__metric-dot__fatal"></div>
+        <div class="case-details__metric-label-text">{{t "fatal"}}</div>
       </div>
-      <div class="case-details__table-total" aria-label={{t "label.total.totalDeaths"}}>{{format-number this.summaryRecord.totalDeaths}}</div>
-      <div class="case-details__table-change d-tooltip" data-tooltip={{t "label.dod.numDeaths"}} aria-label={{t "label.dod.numDeaths"}}>
-        {{format-number this.summaryRecord.numDeaths showPlus=true}}
+      <div class="case-details__metric-value case-details__metric-value__fatal" aria-label={{t "label.total.totalDeaths"}}>
+        {{format-number this.summaryRecord.totalDeaths}}
       </div>
     </div>
   {{else}}
-    <div class="case-details__table flex">
-      <div class="case-details__table-col case-details__table-col--active">
-        <div class="case-details__table-label tag">
-          <div class="case-details__table-dot case-details__table-dot-active"></div>
-          <h6 class="case-details__table-label-text">{{t "active"}}</h6>
-        </div>
-        <div class="case-details__table-total" aria-label={{t "label.total.numActiveCases"}}>
-          {{format-number this.summaryRecord.numActiveCases}}
-        </div>
-        <span class="case-details__table-change case-details__table-change--active d-tooltip" data-tooltip={{t "label.dod.numActiveCases"}} aria-label={{t "label.dod.numActiveCases"}}>
-          {{format-number this.dailyActiveCasesDiff showPlus=true}}
-        </span>
+    <div class="case-details__metric flex align-items-center">
+      <div class="case-details__metric-label tag">
+        <div class="case-details__metric-dot case-details__metric-dot__fatal"></div>
+        <div class="case-details__metric-label-text">{{t "fatal"}}</div>
       </div>
-
-      <div class="case-details__table-col case-details__table-col--fatal">
-        <div class="case-details__table-label tag">
-          <div class="case-details__table-dot case-details__table-dot-fatal"></div>
-          <h6 class="case-details__table-label-text">{{t "fatal"}}</h6>
-        </div>
-        <div class="case-details__table-total" aria-label={{t "label.total.totalDeaths"}}>
-          {{format-number this.summaryRecord.totalDeaths}}
-        </div>
-        <span class="case-details__table-change case-details__table-change--fatal d-tooltip" data-tooltip={{t "label.dod.numDeaths"}} aria-label={{t "label.dod.numDeaths"}}>
-          {{format-number this.summaryRecord.numDeaths showPlus=true}}
-        </span>
+      <div class="case-details__metric-value case-details__metric-value__fatal" aria-label={{t "label.total.totalDeaths"}}>
+        {{format-number this.summaryRecord.totalDeaths}}
       </div>
+    </div>
 
-      <div class="case-details__table-col case-details__table-col--recovered">
-        <div class="case-details__table-label tag">
-          <div class="case-details__table-dot case-details__table-dot-recovered"></div>
-          <h6 class="case-details__table-label-text">{{t "recovered"}}</h6>
-        </div>
-        <div class="case-details__table-total" aria-label={{t "label.total.totalRecoveredCases"}}>
-          {{format-number this.summaryRecord.totalRecoveredCases}}
-        </div>
-        <span class="case-details__table-change case-details__table-change--recovered d-tooltip" data-tooltip={{t "label.dod.numRecoveredCases"}} aria-label={{t "label.dod.numRecoveredCases"}}>
-          {{format-number this.summaryRecord.numRecoveredCases showPlus=true}}
-        </span>
+    <div class="case-details__metric flex align-items-center">
+     <div class="case-details__metric-label tag">
+        <div class="case-details__metric-dot case-details__metric-dot__recovered"></div>
+        <div class="case-details__metric-label-text">{{t "recovered"}}</div>
+      </div>
+      <div class="case-details__metric-value case-details__metric-value__recovered" aria-label={{t "label.total.totalRecoveredCases"}}>
+        {{format-number this.summaryRecord.totalRecoveredCases}}
       </div>
     </div>
   {{/if}}

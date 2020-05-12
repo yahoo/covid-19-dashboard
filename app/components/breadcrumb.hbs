@@ -1,16 +1,14 @@
 {{!-- Copyright 2020, Verizon Media. Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms. --}}
 <div class="breadcrumb p-x-30" ...attributes>
-  <LinkTo
-    @route="dashboard"
-  >
+  <LinkTo @route="dashboard" >
     <span class="breadcrumb__label">{{t "global"}}</span>
   </LinkTo>
-  {{#each this.locations as | location |}}
+  {{#each @locationLineage as | location |}}
     <span class="breadcrumb__delimiter m-x-10">/</span>
     <LinkTo
       class="breadcrumb__link"
       @route="dashboard.location"
-      @model={{location.attributes.wikiId}}
+      @model={{location.id}}
     >
       <span class="breadcrumb__label">{{location.attributes.label}}</span>
     </LinkTo>

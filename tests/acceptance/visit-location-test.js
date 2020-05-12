@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { visit, currentURL, settled } from '@ember/test-helpers';
+import { visit, currentURL } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import {
@@ -28,7 +28,6 @@ module('Acceptance | visit location', function (hooks) {
 
   test('visiting /Earth', async function (assert) {
     await visit('/Earth');
-    await settled();
     assert.equal(currentURL(), '/Earth', '/Earth loads the Earth location');
 
     assertTitle(assert, 'Earth');
@@ -36,23 +35,22 @@ module('Acceptance | visit location', function (hooks) {
     assertGlobalDetails(assert);
 
     assertBreakdownTable(assert, {
-      title: 'Confirmed Cases by Country',
       rows: [
-        { title: 'United States', value: '261,438' },
-        { title: 'Italy', value: '119,827' },
+        { title: 'United States', value: '1,069,826' },
+        { title: 'Spain', value: '215,216' },
       ],
     });
 
     assertBreadCrumb(assert, [{ title: 'Global', href: '/' }]);
 
     assertMap(assert, {
-      markerCount: 221,
+      markerCount: 65,
       showPin: false,
     });
 
     assertLocationDetails(assert, {
       title: 'Earth Details',
-      population: '--',
+      population: '7,594,000,000',
       wikiId: 'Earth',
     });
 
@@ -64,17 +62,15 @@ module('Acceptance | visit location', function (hooks) {
   test('visiting a country - /United_States', async function (assert) {
     await visit('/United_States');
     assert.equal(currentURL(), '/United_States', '/United_States loads the United States location');
-    await settled();
 
     assertTitle(assert, 'United States');
 
     assertGlobalDetails(assert);
 
     assertBreakdownTable(assert, {
-      title: 'Confirmed Cases by State',
       rows: [
-        { title: 'New York (state)', value: '102,863' },
-        { title: 'New Jersey', value: '25,590' },
+        { title: 'New York (state)', value: '304,372' },
+        { title: 'New Jersey', value: '118,652' },
       ],
     });
 
@@ -84,42 +80,35 @@ module('Acceptance | visit location', function (hooks) {
     ]);
 
     assertMap(assert, {
-      markerCount: 221,
+      markerCount: 65,
       showPin: true,
     });
 
     assertLocationDetails(assert, {
       title: 'United States Details',
-      population: '328,239,523',
+      population: '326,687,501',
       wikiId: 'United_States',
     });
 
     assertLocationCaseDetails(assert, {
-      casesTotal: '261,438',
-      casesChange: '-- | --',
-      activeTotal: '0',
-      activeChange: '--',
-      fatalTotal: '6,699',
-      fatalChange: '0',
-      recoveredTotal: '0',
-      recoveredChange: '0',
+      casesTotal: '1,069,826',
+      fatalTotal: '63,006',
+      recoveredTotal: '--',
     });
   });
 
   test('visiting a state - /Alabama', async function (assert) {
     await visit('/Alabama');
     assert.equal(currentURL(), '/Alabama', '/Alabama loads the Alabama location');
-    await settled();
 
     assertTitle(assert, 'Alabama');
 
     assertGlobalDetails(assert);
 
     assertBreakdownTable(assert, {
-      title: 'Confirmed Cases by County',
       rows: [
-        { title: 'Jefferson County, Alabama', value: '345' },
-        { title: 'Madison County, Alabama', value: '119' },
+        { title: 'Mobile County, Alabama', value: '1,078' },
+        { title: 'Jefferson County, Alabama', value: '900' },
       ],
     });
 
@@ -130,25 +119,20 @@ module('Acceptance | visit location', function (hooks) {
     ]);
 
     assertMap(assert, {
-      markerCount: 284,
+      markerCount: 126,
       showPin: true,
     });
 
     assertLocationDetails(assert, {
       title: 'Alabama Details',
-      population: '4,486,508',
+      population: '4,903,185',
       wikiId: 'Alabama',
     });
 
     assertLocationCaseDetails(assert, {
-      casesTotal: '1,315',
-      casesChange: '-- | --',
-      activeTotal: '0',
-      activeChange: '--',
-      fatalTotal: '32',
-      fatalChange: '0',
-      recoveredTotal: '0',
-      recoveredChange: '0',
+      casesTotal: '7,085',
+      fatalTotal: '279',
+      recoveredTotal: '--',
     });
   });
 
@@ -159,18 +143,13 @@ module('Acceptance | visit location', function (hooks) {
       '/Jefferson_County,_Alabama',
       '/Jefferson_County,_Alabama loads the Jefferson County, Alabama location'
     );
-    await settled();
 
     assertTitle(assert, 'Jefferson County, Alabama');
 
     assertGlobalDetails(assert);
 
     assertBreakdownTable(assert, {
-      title: 'Confirmed Cases by County',
-      rows: [
-        { title: 'Jefferson County, Alabama', value: '345' },
-        { title: 'Madison County, Alabama', value: '119' },
-      ],
+      rows: [],
     });
 
     assertBreadCrumb(assert, [
@@ -181,25 +160,20 @@ module('Acceptance | visit location', function (hooks) {
     ]);
 
     assertMap(assert, {
-      markerCount: 284,
+      markerCount: 126,
       showPin: true,
     });
 
     assertLocationDetails(assert, {
       title: 'Jefferson County, Alabama Details',
-      population: '662,047',
+      population: '658,573',
       wikiId: 'Jefferson_County,_Alabama',
     });
 
     assertLocationCaseDetails(assert, {
-      casesTotal: '345',
-      casesChange: '-- | --',
-      activeTotal: '0',
-      activeChange: '--',
-      fatalTotal: '0',
-      fatalChange: '0',
-      recoveredTotal: '0',
-      recoveredChange: '0',
+      casesTotal: '900',
+      fatalTotal: '46',
+      recoveredTotal: '--',
     });
   });
 });
