@@ -31,7 +31,7 @@ const operators = {
   lt: (f, v) => `${f}=lt=${v}`,
   gt: (f, v) => `${f}=gt=${v}`,
   le: (f, v) => `${f}=le=${v}`,
-  ge: (f, v) => `${f}=ge=${v})`,
+  ge: (f, v) => `${f}=ge=${v}`,
 };
 
 export default class ElideService extends Service {

@@ -1,0 +1,12 @@
+{{!-- Copyright 2020, Verizon Media. Licensed under the terms of the Apache License, Version 2.0. See accompanying LICENSE.md file for terms. --}}
+<div class="timeseries__container" ...attributes>
+  <h5 class="timeseries__title">{{@title}}</h5>
+  <ApexChart
+    class="timeseries__chart"
+    @type="line"
+    @width={{@width}}
+    @height={{@height}}
+    @series={{this.series}}
+    @chartOptions={{this.chartOptions}}
+  />
+</div>

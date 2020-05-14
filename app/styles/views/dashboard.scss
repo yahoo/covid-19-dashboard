@@ -55,6 +55,7 @@ $map-header-height--small: 40px;
     background: var(--color-grey-100);
     border-radius: 5px;
     box-shadow: 2px 2px 3px var(--color-grey-400);
+    max-height: 88%;
     overflow-y: auto;
     position: absolute;
     top: $map-header-height + 20px;
@@ -96,5 +97,9 @@ $map-header-height--small: 40px;
         }
       }
     }
+  }
+
+  .leaflet-top, .leaflet-bottom {
+    z-index: 400;
   }
 }

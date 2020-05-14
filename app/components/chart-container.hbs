@@ -1,0 +1,45 @@
+{{!-- Copyright 2020, Verizon Media. Licensed under the terms of the Apache License, Version 2.0. See accompanying LICENSE.md file for terms. --}}
+<div
+  class="chart-container"
+  {{did-insert this.fetchData @location}}
+  {{did-update this.fetchData @location}}
+  ...attributes
+>
+  <div class="chart-container__timeseries-container">
+    <TimeSeries
+      class="chart-container__timeseries"
+      @records={{this.records}}
+      @title={{t "chartTitle.time-series"}}
+      @height="200px"
+    />
+    {{#unless @isMobile}}
+      <span role="button" class="chart-container__expand-icon" {{on "click" (fn this.showModalFor "time-series")}}>
+        {{svg-jar
+          "expand-fullscreen"
+          class="m-r-3"
+          width="10px"
+          height="10px"
+        }}
+      </span>
+    {{/unless}}
+  </div>
+
+  {{#if (and this.showModal (not @isMobile))}}
+    <div class="chart-container__modal modal is-active" ...attributes>
+      <div class="modal-container">
+        <span role="button" class="close link" {{on "click" (fn (mut this.showModal) false)}}>
+          {{svg-jar "close" class="modal__close-icon m-r-3" width="20px" height="20px"}}
+        </span>
+        <div class="modal-header">
+          <h3>{{t (concat 'chartTitle.' this.modalChart)}}</h3>
+        </div>
+        <div class="modal-content">
+          {{component this.modalChart
+            records=this.records
+            height="500px"
+          }}
+        </div>
+      </div>
+    </div>
+  {{/if}}
+</div>

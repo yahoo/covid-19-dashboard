@@ -54,7 +54,22 @@ module('Unit | Service | elide', function (hooks) {
     assert.equal(
       actualUrl.toString(),
       'https://covid19.knowledge.yahoo.com/api/json/v1/healthRecords?filter=referenceDate%3D%3D%272020-04-03T00%3A00Z%27%3BdataSource%3Disnull%3Dtrue&page%5Boffset%5D=0&page%5Blimit%5D=4000',
-      '_buildSearchUrl build a url given a request'
+      '_buildSearchUrl builds a url given a request'
+    );
+  });
+
+  test('_buildFetchUrl - gt, lt, ge & le', function (assert) {
+    const { service } = this;
+    const actualUrl = service._buildUrl('healthRecords', {
+      gt: { referenceDate: '2020-04-03T00:00Z' },
+      ge: { referenceDate: '2020-04-04T00:00Z' },
+      lt: { referenceDate: '2020-05-01T00:00Z' },
+      le: { referenceDate: '2020-04-30T00:00Z' }
+    });
+    assert.equal(
+      actualUrl.toString(),
+      'https://covid19.knowledge.yahoo.com/api/json/v1/healthRecords?filter=referenceDate%3Dlt%3D2020-05-01T00%3A00Z%3BreferenceDate%3Dgt%3D2020-04-03T00%3A00Z%3BreferenceDate%3Dle%3D2020-04-30T00%3A00Z%3BreferenceDate%3Dge%3D2020-04-04T00%3A00Z&page%5Boffset%5D=0&page%5Blimit%5D=4000',
+      '_buildSearchUrl builds a url given a request'
     );
   });
 

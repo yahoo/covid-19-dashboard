@@ -1,0 +1,33 @@
+/**
+ * Copyright 2020, Verizon Media.
+ * Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms.
+ */
+.chart-container {
+  &__timeseries-container {
+    display: flex;
+  }
+
+  &__modal {
+    &.modal.is-active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 9999;
+    }
+
+    .modal-container {
+      min-width: 1000px;
+    }
+
+    .close {
+      cursor: pointer;
+    }
+  }
+
+  &__timeseries {
+    flex: 1;
+  }
+
+  &__expand-icon {
+    cursor: pointer;
+  }
+}

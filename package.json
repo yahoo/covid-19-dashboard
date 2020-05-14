@@ -29,7 +29,7 @@
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "denali-icon-font": "^1.4.1",
-    "ember-apexchartsjs": "^0.1.4",
+    "ember-apexchartsjs": "^0.1.5",
     "ember-auto-import": "^1.5.3",
     "ember-cli": "~3.17.0",
     "ember-cli-app-version": "^3.2.0",
@@ -86,7 +86,9 @@
     }
   },
   "dependencies": {
+    "date-fns": "^2.13.0",
     "denali-css": "^1.0.3",
+    "numeral": "^2.0.6",
     "uuid": "^7.0.3"
   }
 }

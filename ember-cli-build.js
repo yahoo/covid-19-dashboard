@@ -33,6 +33,13 @@ module.exports = function (defaults) {
     'ember-composable-helpers': {
       only: ['contains'],
     },
+    svgJar: {
+      optimizer : {
+        plugins: [
+          { removeTitle: true }
+        ]
+      }
+    }
   });
 
   // Use `app.import` to add additional libraries to the generated
