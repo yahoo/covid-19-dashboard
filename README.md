@@ -46,7 +46,7 @@ Please contact yk-covid-19-os@verizonmedia.com with any questions.
 
 ## License
 
-This project is licensed under the terms of the Apache 2.0 open source license. Please refer to LICENSE in the project root for the full terms.
+This project is licensed under the terms of the Apache 2.0 open source license. Please refer to the [LICENSE](LICENSE) for the full terms.
 
 [status-image]: https://cd.screwdriver.cd/pipelines/4627/badge
 [status-url]: https://cd.screwdriver.cd/pipelines/4627
