@@ -18,6 +18,9 @@ export default class TimeSeriesComponent extends Component {
     const { intl } = this;
     return {
       chart: {
+        animations: {
+          enabled: false
+        },
         toolbar: {
           show: false
         },
