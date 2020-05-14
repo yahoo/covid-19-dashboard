@@ -13,9 +13,6 @@ export default class CaseDetailsComponent extends Component {
   @service elide;
   @tracked summaryRecord;
   @tracked loading = true;
-  @tracked dailyActiveCasesDiff;
-  @tracked totalConfirmedCasesDiff;
-  @tracked totalConfirmedCasesDiffPercent;
 
   get isGlobal() {
     return this.args.location?.id === GLOBAL_ID;

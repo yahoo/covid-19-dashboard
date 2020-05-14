@@ -64,7 +64,7 @@ module('Unit | Service | elide', function (hooks) {
       gt: { referenceDate: '2020-04-03T00:00Z' },
       ge: { referenceDate: '2020-04-04T00:00Z' },
       lt: { referenceDate: '2020-05-01T00:00Z' },
-      le: { referenceDate: '2020-04-30T00:00Z' }
+      le: { referenceDate: '2020-04-30T00:00Z' },
     });
     assert.equal(
       actualUrl.toString(),
@@ -329,7 +329,6 @@ module('Unit | Service | elide', function (hooks) {
               label: 'Italy',
               latitude: 42.50382,
               longitude: 12.57347,
-              numActiveCases: null,
               numDeaths: null,
               numRecoveredCases: null,
               numTested: null,
@@ -371,7 +370,6 @@ module('Unit | Service | elide', function (hooks) {
           label: 'United States',
           latitude: 37.16793,
           longitude: -95.84502,
-          numActiveCases: null,
           numDeaths: null,
           numRecoveredCases: null,
           numTested: null,
