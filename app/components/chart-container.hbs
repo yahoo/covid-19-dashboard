@@ -23,6 +23,25 @@
       </span>
     {{/unless}}
   </div>
+  <div class="chart-container__stacked-bar-container">
+    <StackedBar
+      class="chart-container__stacked-bar"
+      @records={{this.records}}
+      @title={{t "chartTitle.stacked-bar"}}
+      @width="95%"
+      @height="200px"
+    />
+    {{#unless @isMobile}}
+      <span role="button" class="chart-container__expand-icon" {{on "click" (fn this.showModalFor "stacked-bar")}}>
+        {{svg-jar
+          "expand-fullscreen"
+          class="m-r-3"
+          width="10px"
+          height="10px"
+        }}
+      </span>
+    {{/unless}}
+  </div>
 
   {{#if (and this.showModal (not @isMobile))}}
     <div class="chart-container__modal modal is-active" ...attributes>
@@ -31,7 +50,7 @@
           {{svg-jar "close" class="modal__close-icon m-r-3" width="20px" height="20px"}}
         </span>
         <div class="modal-header">
-          <h3>{{t (concat 'chartTitle.' this.modalChart)}}</h3>
+          <h3>{{@location.attributes.label}} {{t (concat 'chartTitle.' this.modalChart)}}</h3>
         </div>
         <div class="modal-content">
           {{component this.modalChart

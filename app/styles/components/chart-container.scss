@@ -3,7 +3,8 @@
  * Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms.
  */
 .chart-container {
-  &__timeseries-container {
+  &__timeseries-container,
+  &__stacked-bar-container {
     display: flex;
   }
 

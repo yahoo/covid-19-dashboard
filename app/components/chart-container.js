@@ -36,10 +36,17 @@ export default class ChartContainerComponent extends Component {
       eq: { 'place.id': location.id },
       ge: { referenceDate: [lookbackDate] },
       fields: {
-        healthRecords: ['referenceDate', 'totalConfirmedCases', 'totalDeaths', 'numDeaths', 'numRecoveredCases'],
+        healthRecords: [
+          'referenceDate',
+          'totalConfirmedCases',
+          'totalDeaths',
+          'totalRecoveredCases',
+          'numPositiveTests',
+          'numDeaths',
+          'numRecoveredCases',
+        ],
       },
     });
-
     this.records = records;
   }).restartable())
   fetchRecords;
