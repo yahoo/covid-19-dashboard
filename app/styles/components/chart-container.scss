@@ -24,7 +24,8 @@
     }
   }
 
-  &__timeseries {
+  &__timeseries,
+  &__stacked-bar {
     flex: 1;
   }
 

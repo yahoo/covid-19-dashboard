@@ -20,7 +20,7 @@ export default class StackedBarComponent extends Component {
     return {
       chart: {
         animations: {
-          enabled: false
+          enabled: false,
         },
         stacked: true,
         toolbar: {
@@ -29,6 +29,7 @@ export default class StackedBarComponent extends Component {
         zoom: {
           enabled: false,
         },
+        width: '100%',
       },
       colors: ['#19c6f4', '#fed800', '#87d812'],
       grid: {
