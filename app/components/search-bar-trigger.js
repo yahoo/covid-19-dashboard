@@ -7,6 +7,12 @@ import { action } from '@ember/object';
 
 export default class SearchBarTriggerComponent extends Component {
   @action
+  onFocus() {
+    this.args.select.actions.open();
+    this.args?.onFocus(...arguments);
+  }
+
+  @action
   handleKeydown(e) {
     if (this.args.onKeydown(e) === false) {
       return false;

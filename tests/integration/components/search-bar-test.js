@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { click, fillIn, render, waitFor } from '@ember/test-helpers';
+import { click, fillIn, focus, render, waitFor } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 
@@ -8,13 +8,37 @@ module('Integration | Component | search-bar', function (hooks) {
   setupRenderingTest(hooks);
   setupMirage(hooks);
 
-  test('search bar rendered', async function (assert) {
+  test('search bar via click', async function (assert) {
     assert.expect(4);
 
     await render(hbs`<SearchBar />`);
     assert.dom('.search-bar__trigger').exists('A search input is rendered');
 
     await click('.search-bar__trigger');
+
+    this.server.timing = 1000;
+    fillIn('.search-bar__trigger-input', 'cha');
+    await waitFor('.search-bar .ember-power-select-option--loading-message');
+    assert
+      .dom('.search-bar .ember-power-select-option--loading-message')
+      .exists('While data loads a loading message is rendered');
+
+    await waitFor('.search-bar .ember-power-select-option', { count: 3, timeout: 3000 });
+    assert.dom('.search-bar .ember-power-select-option').exists({ count: 3 }, 'Three items are rendered');
+
+    this.server.timing = undefined;
+    await fillIn('.search-bar__trigger-input', 'states');
+    await waitFor('.search-bar .ember-power-select-option');
+    assert.dom('.search-bar .ember-power-select-option').hasText('United States', 'Search also looks for countries');
+  });
+
+  test('search bar via focus', async function (assert) {
+    assert.expect(4);
+
+    await render(hbs`<SearchBar />`);
+    assert.dom('.search-bar__trigger').exists('A search input is rendered');
+
+    await focus('.search-bar__trigger');
 
     this.server.timing = 1000;
     fillIn('.search-bar__trigger-input', 'cha');
