@@ -31,7 +31,7 @@
           @locations={{this.locations}}
           as |location|
         >
-          {{#let (get location 'relationships.place.data.id') as | locationId |}}
+          {{#let (get location "relationships.place.data.id") as | locationId |}}
             <li class="location-table__list-item p-y-5 p-x-10">
               <div
                 role="button"
