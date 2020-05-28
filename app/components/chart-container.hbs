@@ -9,7 +9,7 @@
     {{#let (component chart.component) as |ChartComponent|}}
       <div class="chart-container__graph-container">
         <ChartComponent
-          class="chart-container__graph"
+          class="chart-container__graph chart-container__graph--{{chart.component}}"
           @records={{this.records}}
           @metrics={{chart.metrics}}
           @title={{t chart.title}}
