@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { visit, currentURL, findAll } from '@ember/test-helpers';
+import { click, visit, currentURL, findAll } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import { selectChoose, selectSearch } from 'ember-power-select/test-support';
@@ -89,5 +89,28 @@ module('Acceptance | location search', function (hooks) {
       fatalTotal: '279',
       recoveredTotal: '--',
     });
+  });
+
+  test('search click events', async function (assert) {
+    await visit('/');
+    await selectSearch('.search-bar', 'zo');
+    assert.dom('.ember-power-select-option').hasText('Arizona', 'Search can find a location with two characters');
+    await click('.search-bar__trigger-input');
+    assert.dom('.ember-power-select-option').hasText('Arizona', 'Clicking on search does not close the results');
+  });
+
+  test('contiguous search navigation', async function (assert) {
+    await visit('/');
+    await selectSearch('.search-bar', 'Alab');
+    await selectChoose('.search-bar', 'Alabama');
+    assert.equal(currentURL(), '/Alabama', 'Selecting `Alabama` from the results transitions to the correct location');
+
+    await selectSearch('.search-bar', 'Ill');
+    await selectChoose('.search-bar', 'Illinois');
+    assert.equal(
+      currentURL(),
+      '/Illinois',
+      'Selecting `Illinois` from the results transitions to the correct location'
+    );
   });
 });

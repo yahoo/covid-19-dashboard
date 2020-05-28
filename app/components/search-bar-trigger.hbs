@@ -6,8 +6,8 @@
   value={{@select.searchText}}
   aria-controls={{@listboxId}}
   placeholder={{@placeholder}}
-  {{on "input" @onInput}}
-  {{on "focus" this.onFocus}}
+  {{on "input" this.onInput}}
+  {{on "focus" @onFocus}}
   {{on "blur" @onBlur}}
   {{on "keydown" this.handleKeydown}}
 >

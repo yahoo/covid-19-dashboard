@@ -7,9 +7,9 @@ import { action } from '@ember/object';
 
 export default class SearchBarTriggerComponent extends Component {
   @action
-  onFocus() {
+  onInput() {
     this.args.select.actions.open();
-    this.args?.onFocus(...arguments);
+    this.args?.onInput(...arguments);
   }
 
   @action
