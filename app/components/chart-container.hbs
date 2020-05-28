@@ -30,22 +30,24 @@
   {{/each}}
 
   {{#if (and this.showModal (not @isMobile))}}
-    <div class="chart-container__modal modal is-active" ...attributes>
-      <div class="modal-container">
-        <span role="button" class="close link" {{on "click" (fn (mut this.showModal) false)}}>
-          {{svg-jar "close" class="modal__close-icon m-r-3" width="20px" height="20px"}}
-        </span>
-        <div class="modal-header">
-          <h3>{{@location.attributes.label}} {{t this.modalChart.title}}</h3>
-        </div>
-        <div class="modal-content">
-          {{component this.modalChart.component
-            records=this.records
-            metrics=this.modalChart.metrics
-            height="500px"
-          }}
+    <EmberWormhole @to="modal">
+      <div class="chart-container__modal modal is-active">
+        <div class="modal-container">
+          <span role="button" class="close link" {{on "click" (fn (mut this.showModal) false)}}>
+            {{svg-jar "close" class="modal__close-icon m-r-3" width="20px" height="20px"}}
+          </span>
+          <div class="modal-header">
+            <h3>{{@location.attributes.label}} {{t this.modalChart.title}}</h3>
+          </div>
+          <div class="modal-content">
+            {{component this.modalChart.component
+              records=this.records
+              metrics=this.modalChart.metrics
+              height="500px"
+            }}
+          </div>
         </div>
       </div>
-    </div>
+    </EmberWormhole>
   {{/if}}
 </div>
