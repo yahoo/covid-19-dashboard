@@ -3,11 +3,6 @@
  * Licensed under the Apache License, Version 2.0. See accompanying LICENSE file for terms.
  */
 .chart-container {
-  &__timeseries-container,
-  &__stacked-bar-container {
-    display: flex;
-  }
-
   &__modal {
     &.modal.is-active {
       opacity: 1;
@@ -24,9 +19,12 @@
     }
   }
 
-  &__timeseries,
-  &__stacked-bar {
+  &__graph {
     flex: 1;
+
+    &-container {
+      display: flex;
+    }
   }
 
   &__expand-icon {

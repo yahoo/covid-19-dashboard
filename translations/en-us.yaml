@@ -45,5 +45,6 @@ label:
     totalDeaths: 'Total Fatal'
     totalRecoveredCases: 'Total Recovered'
 chartTitle:
-  time-series: 'Cases Over Time'
-  stacked-bar: 'Daily Change'
+  casesOverTime: 'Cases Over Time'
+  movingAverage: '7-Day Moving Average'
+  dailyChange: 'Daily Change'

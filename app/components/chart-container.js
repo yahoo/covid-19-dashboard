@@ -17,6 +17,35 @@ export default class ChartContainerComponent extends Component {
   @tracked showModal;
   @tracked modalChart;
 
+  charts = [
+    {
+      title: 'chartTitle.casesOverTime',
+      component: 'time-series',
+      metrics: {
+        totalConfirmedCases: 'confirmed',
+        totalDeaths: 'fatal',
+        totalRecoveredCases: 'recovered',
+      },
+    },
+    {
+      title: 'chartTitle.movingAverage',
+      component: 'time-series',
+      metrics: {
+        avgWeeklyConfirmedCases: 'confirmed',
+        avgWeeklyDeaths: 'fatal',
+      },
+    },
+    {
+      title: 'chartTitle.dailyChange',
+      component: 'stacked-bar',
+      metrics: {
+        numPositiveTests: 'confirmed',
+        numDeaths: 'fatal',
+        numRecoveredCases: 'recovered',
+      },
+    },
+  ];
+
   get lookbackDate() {
     const lookbackDate = format(subDays(new Date(), DATA_LOOKBACK), 'yyyy-MM-dd');
     return `${lookbackDate}T00:00Z`;
@@ -33,7 +62,7 @@ export default class ChartContainerComponent extends Component {
 
   @(task(function* (location, lookbackDate) {
     const records = yield this.elide.fetch.linked().perform('healthRecords', {
-      eq: { 'placeId': location.id },
+      eq: { placeId: location.id },
       ge: { referenceDate: [lookbackDate] },
       fields: {
         healthRecords: [
@@ -41,6 +70,8 @@ export default class ChartContainerComponent extends Component {
           'totalConfirmedCases',
           'totalDeaths',
           'totalRecoveredCases',
+          'avgWeeklyConfirmedCases',
+          'avgWeeklyDeaths',
           'numPositiveTests',
           'numDeaths',
           'numRecoveredCases',
@@ -52,8 +83,8 @@ export default class ChartContainerComponent extends Component {
   fetchRecords;
 
   @action
-  showModalFor(chartType) {
+  showModalFor(chart) {
     this.showModal = true;
-    this.modalChart = chartType;
+    this.modalChart = chart;
   }
 }

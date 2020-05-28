@@ -6,12 +6,6 @@ import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import numeral from 'numeral';
 
-const METRICS = {
-  totalConfirmedCases: 'confirmed',
-  totalDeaths: 'fatal',
-  totalRecoveredCases: 'recovered',
-};
-
 export default class TimeSeriesComponent extends Component {
   @service intl;
 
@@ -97,13 +91,14 @@ export default class TimeSeriesComponent extends Component {
   }
 
   convertToSeries(records) {
+    const { metrics } = this.args;
     const chartSeriesData = [];
     const data = records.data.map((r) => r.attributes);
 
-    Object.keys(METRICS).forEach((metric) => {
+    Object.keys(metrics).forEach((metric) => {
       const seriesObj = this.getSeriesForMetric(data, metric);
       chartSeriesData.push({
-        name: METRICS[metric],
+        name: metrics[metric],
         data: seriesObj,
       });
     });
