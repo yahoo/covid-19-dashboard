@@ -8,7 +8,7 @@ import { task } from 'ember-concurrency';
 
 export const GLOBAL_ID = 'Earth';
 
-export const SUPERNAME_TYPE = 'Supername';
+export const ASTRONOMICAL_OBJECT_TYPE = 'AstronomicalObject';
 export const COUNTRY_TYPE = 'Country';
 export const STATE_ADMIN_AREA_TYPE = 'StateAdminArea';
 export const COUNTY_ADMIN_AREA_TYPE = 'CountyAdminArea';

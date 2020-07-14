@@ -12,7 +12,7 @@ import { task, all } from 'ember-concurrency';
 import { buildWaiter } from 'ember-test-waiters';
 import {
   GLOBAL_ID,
-  SUPERNAME_TYPE,
+  ASTRONOMICAL_OBJECT_TYPE,
   COUNTRY_TYPE,
   STATE_ADMIN_AREA_TYPE,
   COUNTY_ADMIN_AREA_TYPE,
@@ -21,14 +21,14 @@ import {
 const { tileServer, tileServerAttribution } = ENV.APP;
 
 const ZOOM_LEVELS = {
-  [SUPERNAME_TYPE]: 3,
+  [ASTRONOMICAL_OBJECT_TYPE]: 3,
   [COUNTRY_TYPE]: 4,
   [STATE_ADMIN_AREA_TYPE]: 7,
   [COUNTY_ADMIN_AREA_TYPE]: 9,
 };
 
 const MOBILE_ZOOM_LEVELS = {
-  [SUPERNAME_TYPE]: 1,
+  [ASTRONOMICAL_OBJECT_TYPE]: 1,
   [COUNTRY_TYPE]: 3,
   [STATE_ADMIN_AREA_TYPE]: 7,
   [COUNTY_ADMIN_AREA_TYPE]: 8,
@@ -55,8 +55,8 @@ export default class MapComponent extends Component {
   @tracked locationRecords = [];
   @tracked countryRecords = [];
   @tracked stateAdminAreaRecords = [];
-  @tracked zoom = ZOOM_LEVELS[SUPERNAME_TYPE];
-  @tracked currentZoom = ZOOM_LEVELS[SUPERNAME_TYPE];
+  @tracked zoom = ZOOM_LEVELS[ASTRONOMICAL_OBJECT_TYPE];
+  @tracked currentZoom = ZOOM_LEVELS[ASTRONOMICAL_OBJECT_TYPE];
 
   tileServerAttribution = tileServerAttribution;
   tileUrl = tileServer;
@@ -120,7 +120,7 @@ export default class MapComponent extends Component {
 
   @task(function* () {
     const { locationPlaceType } = this;
-    if (![SUPERNAME_TYPE, COUNTRY_TYPE].includes(locationPlaceType)) {
+    if (![ASTRONOMICAL_OBJECT_TYPE, COUNTRY_TYPE].includes(locationPlaceType)) {
       const latestHealthRecords = yield this.elide.fetch.perform('latestHealthRecords', {
         fields: {
           latestHealthRecords: REQUEST_FIELDS,
@@ -204,7 +204,7 @@ export default class MapComponent extends Component {
     const { location } = this.args;
     const { locationPlaceType, maxZoom } = this;
     const levels = isMobile ? MOBILE_ZOOM_LEVELS : ZOOM_LEVELS;
-    let zoom = levels[SUPERNAME_TYPE];
+    let zoom = levels[ASTRONOMICAL_OBJECT_TYPE];
     if (location) {
       zoom = levels[locationPlaceType] || maxZoom;
     }

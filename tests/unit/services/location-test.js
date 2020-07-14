@@ -11,7 +11,7 @@ module('Unit | Service | location', function (hooks) {
 
     const earth = await service.fetchTask.perform('Earth');
     assert.equal(earth.id, 'Earth', '`fetch` can return Earth location');
-    assert.equal(earth.attributes.placeType, 'Supername', '`fetch` can return Earth location');
+    assert.equal(earth.attributes.placeType, 'AstronomicalObject', '`fetch` can return Earth location');
 
     const country = await service.fetchTask.perform('Italy');
     assert.equal(country.id, 'Italy', '`fetch` can return a country location');

@@ -2016,7 +2016,7 @@ export default [
     label: 'Earth',
     latitude: 0,
     longitude: 0,
-    placeType: 'Supername',
+    placeType: 'AstronomicalObject',
     population: 7594000000,
     wikiId: 'Earth',
     childrenIds: [
