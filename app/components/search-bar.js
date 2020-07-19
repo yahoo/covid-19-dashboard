@@ -25,6 +25,7 @@ export default class SearchBarComponent extends Component {
       fields: {
         places: ['id', 'label'],
       },
+      sort: 'rank',
       limit: 100,
     });
     const results = places?.data?.map(({ id, attributes: { label } }) => ({
